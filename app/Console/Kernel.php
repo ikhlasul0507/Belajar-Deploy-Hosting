@@ -29,4 +29,9 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
+    protected $routeMiddleware  = [
+        'jwtauth' => \App\Http\Middleware\JWTAuthentication::class,
+        'localization' => \App\Http\Middleware\localization::class,
+    ];
 }

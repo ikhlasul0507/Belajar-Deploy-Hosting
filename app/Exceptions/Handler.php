@@ -4,6 +4,16 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Response;
+use Exception;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException;
+
+// use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+// use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+// use Tymon\JWTAuth\Exceptions\JWTException;
+// use App\Exceptions\Exception;
 
 class Handler extends ExceptionHandler
 {
@@ -34,9 +44,27 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        // $this->reportable(function (Throwable $e) {
+        //     //
+        // });
+            
+        // if ($exception instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException) {
+        //     return response()->json(["error" => $exception->getMessage()], 401);
+        // }
+        
+        $this->renderable(function ($exception, $request) {
+
+            // return response()->view('errors.custom', [], 500);
+            return response()->json(['error' => $request], 401);
+            if ($exception instanceof TokenExpiredException) {
+                return response()->json(['error' => 'Token Expired'], 401);
+            } else if ($exception instanceof TokenInvalidException) {
+                return response()->json(['error' => 'Token Invalid'], 401);
+            } else if ($exception instanceof JWTException) {
+                return response()->json(['error' => 'Token Absent'], 401);
+            }
         });
+        
     }
-    
+
 }
