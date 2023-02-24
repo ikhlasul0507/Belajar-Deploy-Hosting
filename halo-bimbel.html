@@ -291,7 +291,7 @@
                                                     </td>
                                                     <td>
                                                         <i class="fas fa-book-open fa-sm mr-2"></i>
-                                                        <a class="badge badge-dark bg-primary text-center text-light">Kerjakan</a>
+                                                        <a data-toggle="modal" data-target="#ModalCartKerjakan" class="badge badge-dark bg-primary text-center text-light">Kerjakan</a>
                                                     </td>
                                                     <td>
                                                         <i class="fas fa-download fa-sm mr-2"></i>
@@ -309,56 +309,8 @@
                                                         <p class="badge badge-dark bg-success text-center text-light">Selesai</p>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td><b><p><small>Senin, 23 Feb 2023 15:15</small></p></b></td>
-                                                    <td><i class="fas fa-book fa-sm fa-fw mr-2 text-danger-400"></i>
-                                                        <b>Pengenalan Silabus</b>
-                                                    </td>
-                                                    <td>
-                                                        <i class="fas fa-book-open fa-sm mr-2"></i>
-                                                        <a class="badge badge-dark bg-primary text-center text-light">Kerjakan</a>
-                                                    </td>
-                                                    <td>
-                                                        <i class="fas fa-download fa-sm mr-2"></i>
-                                                        <a class="badge badge-dark bg-primary text-center text-light">Download</a>
-                                                    </td>
-                                                    <td>
-                                                        <i class="fas fa-restroom fa-sm mr-2"></i>
-                                                        <a class="badge badge-dark bg-primary text-center text-light">Masuk</a>
-                                                    </td>
-                                                    <td>
-                                                        <i class="fas fa-eye fa-sm mr-2"></i>
-                                                        <a class="badge badge-dark bg-primary text-center text-light">Lihat</a>
-                                                    </td>
-                                                    <td>
-                                                        <p class="badge badge-dark bg-success text-center text-light">Selesai</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td><b><p><small>Senin, 23 Feb 2023 15:15</small></p></b></td>
-                                                    <td><i class="fas fa-book fa-sm fa-fw mr-2 text-danger-400"></i>
-                                                        <b>Pengenalan Silabus</b>
-                                                    </td>
-                                                    <td>
-                                                        <i class="fas fa-book-open fa-sm mr-2"></i>
-                                                        <a class="badge badge-dark bg-primary text-center text-light">Kerjakan</a>
-                                                    </td>
-                                                    <td>
-                                                        <i class="fas fa-download fa-sm mr-2"></i>
-                                                        <a class="badge badge-dark bg-primary text-center text-light">Download</a>
-                                                    </td>
-                                                    <td>
-                                                        <i class="fas fa-restroom fa-sm mr-2"></i>
-                                                        <a class="badge badge-dark bg-primary text-center text-light">Masuk</a>
-                                                    </td>
-                                                    <td>
-                                                        <i class="fas fa-eye fa-sm mr-2"></i>
-                                                        <a class="badge badge-dark bg-primary text-center text-light">Lihat</a>
-                                                    </td>
-                                                    <td>
-                                                        <p class="badge badge-dark bg-success text-center text-light">Selesai</p>
-                                                    </td>
-                                                </tr>
+
+
                                             </tbody>
                                         </table>
                                     </div>
@@ -375,6 +327,52 @@
 
             </div>
             <!-- End of Main Content -->
+            <!-- Logout Modal-->
+            <div class="modal fade bd-example-modal-lg" id="ModalCartKerjakan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Metode Pembelian</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <div class="row">
+                                    <div class="cart-box">
+                                        <!-- Earnings (Annual) Card Example -->
+                                        <div class="col-xl-12 col-md-6 mb-4">
+                                            <div class="card border-left-primary cart-buying shadow h-100 py-2">
+                                                <div class="card-body">
+                                                    <div class="row no-gutters align-items-center">
+                                                        <div class="col mr-2">
+                                                            <div class="text-xs font-weight-bold text-success cart-buying text-uppercase mb-1">
+                                                                OVO</div>
+                                                            <div class="h5 mb-0 font-weight-bold cart-buying">Rp.215.000</div>
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <img class="img-profile rounded-circle logo-payment" src="img/ovo.png">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer col-12">
+                                        <a href="#" class="btn mt-2 btn-warning  bg-gradient-primary col-12 btn-icon-split">
+                                            <span class="icon text-white-50">
+                                    <i class="fas fa-arrow-right"></i>
+                                </span>
+                                            <span class="text">Lanjutkan Pembayaran</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
