@@ -44,7 +44,82 @@
             width: 100%;
         }
     }
+    
+    #loading {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        /*background: center no-repeat #fff;*/
+        background-color: silver;
+        opacity: 1.5;
+        /*background: center no-repeat #fff;*/
+    }
+    /*-- css spin --*/
+    
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+    
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    /*-- css loader --*/
+    
+    .no-js #loader {
+        display: none;
+    }
+    
+    .js #loader {
+        display: block;
+        position: absolute;
+        left: 100px;
+        top: 0;
+    }
+    
+    .loader {
+        border: 10px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 10px solid #3498db;
+        border-bottom: 10px solid #FFC107;
+        width: 150px;
+        height: 150px;
+        left: 43.5%;
+        top: 20%;
+        -webkit-animation: spin 2s linear infinite;
+        position: fixed;
+        animation: spin 2s linear infinite;
+    }
+    
+    .textLoader {
+        position: relative;
+        top: 56%;
+        color: #34495e;
+        opacity: 100;
+    }
 </style>
+
+<div id="loading">
+    <span class="loader"></span>
+    <div class="textLoader">
+        <center>
+            <b><h1>Tekan Tombol Mulai</h1></b>
+            <button class="btn bg-gradient-danger text-light" onclick="openFullscreen()"><i class="fa fa-arrow-right mr-2"></i>Mulai</button>
+        </center>
+    </div>
+</div>
 
 <body id="page-top">
 
@@ -357,7 +432,7 @@
                                                     <span class="text">5</span>
                                                 </a>
                                             </div>
-                                            <a href="#" class="btn btn-warning bg-gradient-danger mt-4 col-12 btn-icon-split">
+                                            <a href="#" onclick="" class="btn btn-warning bg-gradient-danger mt-4 col-12 btn-icon-split">
                                                 <span class="text">Selesai Mengerjakan</span>
                                             </a>
                                         </div>
@@ -374,7 +449,6 @@
 
             </div>
             <!-- End of Main Content -->
-
 
 
             <!-- Footer -->
@@ -432,7 +506,7 @@
         // --------------Set Timer----------------//
         var detik = 15;
         var menit = 0;
-        var jam = 1;
+        var jam = 0;
 
         getTimeTryOut = () => {
             var timeoutsoal = document.getElementById("timeoutsoal");
@@ -459,7 +533,23 @@
                 }
             }
         }
-        getTimeTryOut()
+
+
+        // ---------------Set Logic Full Screen-----------------//
+        function openFullscreen() {
+            let elem = document.documentElement;
+            $("#loading").hide();
+            $(".loader").hide();
+            getTimeTryOut()
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen()
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        }
+
 
         // -------------Set Logic Answer-------------------//
         setValueAnswer = (number, idAnswer) => {
