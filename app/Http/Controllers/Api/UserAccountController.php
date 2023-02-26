@@ -8,7 +8,7 @@ use App\Models\UserAccount;
 use Illuminate\Http\Request;
 class UserAccountController extends Controller
 {
-    //
+    //controller
     public function __construct()
     {
         // $this->middleware('auth:api');
