@@ -269,33 +269,33 @@
                                             <div class="h6 mb-0 mt-4 rounded border-left-warning border-top text-dark ml-2">
                                                 <h6 class="ml-3 mt-3 mb-3">Berikut ini yang termasuk dalam faktor pendorong nasionalisme dari luar Indonesia pada awal pergerakan nasional, kecuali ....</h6>
 
-                                                <div class="form-check ml-3 mb-3">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                                    <label class="form-check-label ml-4 mt-1 rounded ml-3 bg-light w-100" for="flexRadioDefault1" style="cursor :pointer">
+                                                <div class="form-check ml-3 mb-3" onclick="setValueAnswer(1,11)">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="11">
+                                                    <label class="form-check-label hover:bg-gray-200 ml-4 mt-1 rounded ml-3 bg-light w-100" for="11" style="cursor :pointer">
                                                         Adanya kelompok masyarakat berpendidikan tinggi
                                                         </label>
                                                 </div>
-                                                <div class="form-check ml-3 mb-3">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                                    <label class="form-check-label ml-4 mt-1 rounded ml-3 bg-light w-100" for="flexRadioDefault2" style="cursor :pointer">
+                                                <div class="form-check ml-3 mb-3" onclick="setValueAnswer(1,12)">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="12">
+                                                    <label class="form-check-label ml-4 mt-1 rounded ml-3 bg-light w-100" for="12" style="cursor :pointer">
                                                         Adanya kelompok masyarakat berpendidikan tinggi
                                                         </label>
                                                 </div>
-                                                <div class="form-check ml-3 mb-3">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                                                    <label class="form-check-label ml-4 mt-1 rounded ml-3 bg-light w-100" for="flexRadioDefault3" style="cursor :pointer">
+                                                <div class="form-check ml-3 mb-3" onclick="setValueAnswer(1,13)">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="13">
+                                                    <label class="form-check-label ml-4 mt-1 rounded ml-3 bg-light w-100" for="13" style="cursor :pointer">
                                                         Adanya kelompok masyarakat berpendidikan tinggi
                                                         </label>
                                                 </div>
-                                                <div class="form-check ml-3 mb-3">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
-                                                    <label class="form-check-label ml-4 mt-1 rounded ml-3 bg-light w-100" for="flexRadioDefault4" style="cursor :pointer">
+                                                <div class="form-check ml-3 mb-3" onclick="setValueAnswer(1,14)">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="14">
+                                                    <label class="form-check-label ml-4 mt-1 rounded ml-3 bg-light w-100" for="14" style="cursor :pointer">
                                                         Adanya kelompok masyarakat berpendidikan tinggi
                                                         </label>
                                                 </div>
-                                                <div class="form-check ml-3 mb-0">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5">
-                                                    <label class="form-check-label ml-4 mt-1 rounded ml-3 bg-light w-100" for="flexRadioDefault5" style="cursor :pointer" s>
+                                                <div class="form-check ml-3 mb-0" onclick="setValueAnswer(1,15)">
+                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="15">
+                                                    <label class="form-check-label ml-4 mt-1 rounded ml-3 bg-light w-100" for="15" style="cursor :pointer" s>
                                                         Adanya kelompok masyarakat berpendidikan tinggi
                                                         </label>
                                                 </div>
@@ -303,7 +303,7 @@
                                         </div>
                                     </div>
                                     <div class="d-sm-flex align-items-center justify-content-between mt-0">
-                                        <a href="#" class="btn mt-5 btn-warning bg-gradient-primary col-3 btn-icon-split">
+                                        <a href="#" id="batalkanJawaban" data-value="" class="btn mt-5 btn-warning bg-gradient-primary col-3 btn-icon-split">
                                             <span class="text">Batalkan Jawaban</span>
                                         </a>
                                         <a href="disclamer-tryout.html" class="btn mt-5 btn-warning bg-gradient-danger col-3 btn-icon-split">
@@ -316,92 +316,41 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-4 col-md-6 mb-4">
+                        <div class="col-xl-4 col-md-12 mb-4">
                             <div class="card border-left-primary shadow h-1500 py-10">
                                 <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
+                                    <div class="row no-gutters align-items-center col-12">
+                                        <div class="col-12">
                                             <div class="d-sm-flex align-items-center justify-content-between mb-2">
                                                 <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
-                                                    <i class="fas fa-clock fa-lg ml-2 mr-3"></i>1 Jam 30 Menit 10 Detik</div>
+                                                    <i class="fas fa-clock fa-lg ml-2 mr-3"></i>
+                                                </div>
+                                                <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">
+                                                    <div id="timeoutsoal">1 Jam 30 Menit 10 Detik</div>
+                                                </div>
                                             </div>
                                             <hr>
                                             <h6 class="">Nomor Soal</h6>
-                                            <div class="d-sm-flex align-items-center justify-content-between">
-                                                <a href="#" class="btn btn-warning bg-gradient-light text-black-50 col-3 btn-icon-split">
+                                            <div class="d-sm-flex align-items-center justify-content-between mb-2">
+                                                <a href="#" id="answer1" data-number="1" data-value="" class="btn btn-warning mt-2 ml-1 col-2 btn-icon-split">
                                                     <span class="text">1</span>
                                                 </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
+                                                <a href="#" id="answer2" data-number="2" data-value="" class="btn btn-warning mt-2 ml-1 col-2 btn-icon-split">
                                                     <span class="text">2</span>
                                                 </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
+                                                <a href="#" id="answer3" data-number="3" data-value="" class="btn btn-warning mt-2 ml-1 col-2 btn-icon-split">
                                                     <span class="text">3</span>
                                                 </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
+                                                <a href="#" id="answer4" data-number="4" data-value="" class="btn btn-warning mt-2 ml-1 col-2 btn-icon-split">
                                                     <span class="text">4</span>
                                                 </a>
-                                            </div>
-                                            <div class="d-sm-flex align-items-center justify-content-between">
-                                                <a href="#" class="btn btn-warning bg-gradient-light text-black-50 col-3 btn-icon-split">
+                                                <a href="#" id="answer5" data-number="5" data-value="" class="btn btn-warning mt-2 ml-1 col-2 btn-icon-split">
                                                     <span class="text">5</span>
                                                 </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
-                                                    <span class="text">6</span>
-                                                </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
-                                                    <span class="text">7</span>
-                                                </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
-                                                    <span class="text">8</span>
-                                                </a>
                                             </div>
-                                            <div class="d-sm-flex align-items-center justify-content-between">
-                                                <a href="#" class="btn btn-warning bg-gradient-light text-black-50 col-3 btn-icon-split">
-                                                    <span class="text">9</span>
-                                                </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
-                                                    <span class="text">10</span>
-                                                </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
-                                                    <span class="text">11</span>
-                                                </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
-                                                    <span class="text">12</span>
-                                                </a>
-                                            </div>
-                                            <div class="d-sm-flex align-items-center justify-content-between">
-                                                <a href="#" class="btn btn-warning bg-gradient-light text-black-50 col-3 btn-icon-split">
-                                                    <span class="text">13</span>
-                                                </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
-                                                    <span class="text">14</span>
-                                                </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
-                                                    <span class="text">15</span>
-                                                </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
-                                                    <span class="text">16</span>
-                                                </a>
-                                            </div>
-                                            <div class="d-sm-flex align-items-center justify-content-between">
-                                                <a href="#" class="btn btn-warning bg-gradient-light text-black-50 col-3 btn-icon-split">
-                                                    <span class="text">17</span>
-                                                </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
-                                                    <span class="text">18</span>
-                                                </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
-                                                    <span class="text">19</span>
-                                                </a>
-                                                <a href="#" class="btn btn-warning bg-gradient-primary col-3 btn-icon-split">
-                                                    <span class="text">20</span>
-                                                </a>
-                                            </div>
-                                            <div class="d-sm-flex align-items-center justify-content-between">
-                                                <a href="#" class="btn btn-warning bg-gradient-danger mt-4 col-12 btn-icon-split">
-                                                    <span class="text">Selesai Mengerjakan</span>
-                                                </a>
-                                            </div>
+                                            <a href="#" class="btn btn-warning bg-gradient-danger mt-4 col-12 btn-icon-split">
+                                                <span class="text">Selesai Mengerjakan</span>
+                                            </a>
                                         </div>
                                     </div>
 
@@ -465,6 +414,35 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 
+    <script>
+        // --------------Set Timer----------------//
+        getTimeTryOut = () => {
+            var timeoutsoal = document.getElementById("timeoutsoal");
+            var waktu = new Date();
+            var jam = waktu.getHours();
+            var menit = waktu.getMinutes();
+            var detik = waktu.getSeconds();
+            timeoutsoal.innerHTML = jam + " Jam " +
+                menit + " Menit " + detik + " Detik"
+        }
+
+        setInterval(
+            getTimeTryOut, 1000
+        )
+
+        // -------------Set Logic Answer-------------------//
+
+        setValueAnswer = (number, id) => {
+            const tagAnswer = document.getElementById("answer" + number);
+            let getDataValueAnswer = tagAnswer.getAttribute('data-value')
+            let getDataNumberAnswer = tagAnswer.getAttribute('data-number')
+
+            if (getDataNumberAnswer == number) {
+                tagAnswer.classList.add("bg-gradient-primary")
+                document.getElementById("batalkanJawaban").setAttribute('data-value', number)
+            }
+        }
+    </script>
 </body>
 
 </html>
