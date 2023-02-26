@@ -270,31 +270,31 @@
                                                 <h6 class="ml-3 mt-3 mb-3">Berikut ini yang termasuk dalam faktor pendorong nasionalisme dari luar Indonesia pada awal pergerakan nasional, kecuali ....</h6>
 
                                                 <div class="form-check ml-3 mb-3" onclick="setValueAnswer(1,11)">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="11">
+                                                    <input class="form-check-input" type="radio" name="1" id="11">
                                                     <label class="form-check-label hover:bg-gray-200 ml-4 mt-1 rounded ml-3 bg-light w-100" for="11" style="cursor :pointer">
                                                         Adanya kelompok masyarakat berpendidikan tinggi
                                                         </label>
                                                 </div>
                                                 <div class="form-check ml-3 mb-3" onclick="setValueAnswer(1,12)">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="12">
+                                                    <input class="form-check-input" type="radio" name="1" id="12">
                                                     <label class="form-check-label ml-4 mt-1 rounded ml-3 bg-light w-100" for="12" style="cursor :pointer">
                                                         Adanya kelompok masyarakat berpendidikan tinggi
                                                         </label>
                                                 </div>
                                                 <div class="form-check ml-3 mb-3" onclick="setValueAnswer(1,13)">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="13">
+                                                    <input class="form-check-input" type="radio" name="1" id="13">
                                                     <label class="form-check-label ml-4 mt-1 rounded ml-3 bg-light w-100" for="13" style="cursor :pointer">
                                                         Adanya kelompok masyarakat berpendidikan tinggi
                                                         </label>
                                                 </div>
                                                 <div class="form-check ml-3 mb-3" onclick="setValueAnswer(1,14)">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="14">
+                                                    <input class="form-check-input" type="radio" name="1" id="14">
                                                     <label class="form-check-label ml-4 mt-1 rounded ml-3 bg-light w-100" for="14" style="cursor :pointer">
                                                         Adanya kelompok masyarakat berpendidikan tinggi
                                                         </label>
                                                 </div>
                                                 <div class="form-check ml-3 mb-0" onclick="setValueAnswer(1,15)">
-                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="15">
+                                                    <input class="form-check-input" type="radio" name="1" id="15">
                                                     <label class="form-check-label ml-4 mt-1 rounded ml-3 bg-light w-100" for="15" style="cursor :pointer" s>
                                                         Adanya kelompok masyarakat berpendidikan tinggi
                                                         </label>
@@ -303,15 +303,15 @@
                                         </div>
                                     </div>
                                     <div class="d-sm-flex align-items-center justify-content-between mt-0">
-                                        <a href="#" id="batalkanJawaban" data-value="" class="btn mt-5 btn-warning bg-gradient-primary col-3 btn-icon-split">
+                                        <button href="#" type="button" id="batalkanJawaban" data-value="" onclick="funcBatalkanJawaban()" class="btn mt-5 btn-warning bg-gradient-primary col-3 btn-icon-split">
                                             <span class="text">Batalkan Jawaban</span>
-                                        </a>
-                                        <a href="disclamer-tryout.html" class="btn mt-5 btn-warning bg-gradient-danger col-3 btn-icon-split">
+                                        </button>
+                                        <button href="disclamer-tryout.html" class="btn mt-5 btn-warning bg-gradient-danger col-3 btn-icon-split">
                                             <span class="icon text-white-50">
                                         <i class="fas fa-arrow-right"></i>
                                         </span>
                                             <span class="text">Selanjutnya</span>
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -430,17 +430,33 @@
             getTimeTryOut, 1000
         )
 
-        // -------------Set Logic Answer-------------------//
+        // -------------variabel global--------------------//
+        const valueBatalkan = document.getElementById("batalkanJawaban")
 
-        setValueAnswer = (number, id) => {
+
+        // -------------Set Logic Answer-------------------//
+        setValueAnswer = (number, idAnswer) => {
             const tagAnswer = document.getElementById("answer" + number);
             let getDataValueAnswer = tagAnswer.getAttribute('data-value')
             let getDataNumberAnswer = tagAnswer.getAttribute('data-number')
 
             if (getDataNumberAnswer == number) {
                 tagAnswer.classList.add("bg-gradient-primary")
-                document.getElementById("batalkanJawaban").setAttribute('data-value', number)
+                tagAnswer.setAttribute("data-value", idAnswer)
+                document.getElementById("batalkanJawaban").setAttribute('data-value', idAnswer)
+                document.getElementById("batalkanJawaban").setAttribute('data-number', number)
             }
+        }
+
+        //--------------Set Logic Batalkan Jawaban
+        funcBatalkanJawaban = () => {
+            //for number
+            const tagAnswer = document.getElementById("answer" +
+                valueBatalkan.getAttribute('data-number'));
+            tagAnswer.classList.remove("bg-gradient-primary");
+            //for check input
+            const nameInput = document.getElementById(valueBatalkan.getAttribute('data-value'));
+            nameInput.checked = false
         }
     </script>
 </body>
