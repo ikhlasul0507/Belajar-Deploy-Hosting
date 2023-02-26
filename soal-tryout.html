@@ -421,23 +421,42 @@
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
-        // --------------Set Timer----------------//
-        getTimeTryOut = () => {
-            var timeoutsoal = document.getElementById("timeoutsoal");
-            var waktu = new Date();
-            var jam = waktu.getHours();
-            var menit = waktu.getMinutes();
-            var detik = waktu.getSeconds();
-            timeoutsoal.innerHTML = jam + " Jam " +
-                menit + " Menit " + detik + " Detik"
-        }
-        setInterval(
-            getTimeTryOut, 1000
-        )
-
         // -------------variabel global--------------------//
         const valueBatalkan = document.getElementById("batalkanJawaban")
+        let beat = new Audio('/sound/countdown.mp3');
 
+
+        // --------------Set Timer----------------//
+        var detik = 15;
+        var menit = 0;
+        var jam = 0;
+
+        getTimeTryOut = () => {
+            var timeoutsoal = document.getElementById("timeoutsoal");
+            timeoutsoal.innerHTML = jam + " Jam " +
+                menit + " Menit " + detik + " Detik"
+            setTimeout(getTimeTryOut, 1000);
+
+            detik--;
+            if (jam < 1 && menit < 1 && detik < 11) {
+                beat.play();
+            }
+            if (detik < 0) {
+                detik = 59;
+                menit--;
+                if (menit < 0) {
+                    menit = 59;
+                    jam--;
+                    if (jam < 0) {
+                        beat.pause();
+                        clearInterval();
+                        alert("Mohon maaf, waktu pengerjaan habis")
+                        location.replace('halo-bimbel.html')
+                    }
+                }
+            }
+        }
+        getTimeTryOut()
 
         // -------------Set Logic Answer-------------------//
         setValueAnswer = (number, idAnswer) => {
