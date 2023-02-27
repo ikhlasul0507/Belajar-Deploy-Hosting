@@ -15,7 +15,7 @@ class UserAccountResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'version'   => '1.1.1',
+            'version'   => '1.0.0',
             'serverAddress'   => '11.11.11.11',
             'statusSuccess'   => $this->status,
             'message'   => $this->message,
