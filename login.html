@@ -13,9 +13,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -43,13 +41,10 @@
                                     </div>
                                     <form class="user">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
@@ -97,6 +92,49 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+
+    <script>
+        //--------------get token-------------------//
+        let formData = new FormData();
+
+        formData.append('email', 'amal5@gmail.com');
+        formData.append('password', 'amal1234');
+
+        fetch('http://localhost:8000/api/login', {
+                // headers: {
+                //     Authentication: 'Bearer {token}'
+                // }
+                body: formData,
+                method: 'post'
+            })
+            .then(resp => resp.json())
+            .then(json => {
+                let getToken = JSON.stringify(json.token)
+                localStorage.setItem("authentication_log", btoa(JSON.stringify(json)))
+                getDataWith(getToken.substring(1, getToken.length - 1))
+            })
+
+
+        getDataWith = (token) => {
+            console.log("----------------------------------")
+            console.log(checkTokenLogin());
+            console.log("----------------------------------")
+            fetch('http://localhost:8000/api/halo/userAccounts?page=1', {
+                    headers: {
+                        Authorization: 'Bearer ' + token
+                    },
+                    // body: formData,
+                    method: 'get'
+                })
+                .then(resp => resp.json())
+                .then(json => console.log(JSON.stringify(json)))
+        }
+        checkTokenLogin = () => {
+            // console.log(token)
+            let valueAuth = JSON.parse(atob(localStorage.getItem("authentication_log")))
+            return valueAuth.token
+        }
+    </script>
 
 </body>
 
