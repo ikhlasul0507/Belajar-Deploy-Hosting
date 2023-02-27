@@ -10,7 +10,6 @@ class UserAccount extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'uuid',
         'name',
         'visitor',
@@ -18,6 +17,11 @@ class UserAccount extends Model
         'updated_by',
         'deleted_by',
         'deleted',
-        'updated_at',
     ];
+
+
+	public function showField()
+	{
+		return ['id','uuid','name','visitor','created_at','updated_at'];
+	}
 }
