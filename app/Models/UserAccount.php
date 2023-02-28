@@ -22,6 +22,8 @@ class UserAccount extends Model
 
 	public function showField()
 	{
-		return ['id','uuid','name','visitor','created_at','updated_at'];
+		return [
+            'fieldTable' => ['id','uuid','name','visitor','created_at','updated_at']
+        ];
 	}
 }

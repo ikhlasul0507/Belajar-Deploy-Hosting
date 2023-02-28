@@ -33,10 +33,7 @@ class PostResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'success'   => $this->status,
-            'message'   => $this->message,
-            'data'      => $this->resource
-        ];
+        $payload = new Payload();
+        return $payload->toArrayPayload($request, $this->status, $this->message, $this->resource);
     }
 }

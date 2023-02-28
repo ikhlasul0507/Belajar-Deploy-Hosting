@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Resources;
-
+use Illuminate\Support\Str;
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Http\Resources\Payload;
 class UserAccountResource extends JsonResource
 {
     /**
@@ -12,25 +12,23 @@ class UserAccountResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
+    
+     public $status;
+     public $message;
+     
+
+     public function __construct($status, $message, $resource)
+     {
+         parent::__construct($resource);
+         $this->status  = $status;
+         $this->message = $message;
+     }
+ 
+ 
     public function toArray($request)
     {
-        return [
-            'version'   => '1.0.0',
-            'serverAddress'   => '11.11.11.11',
-            'statusSuccess'   => $this->status,
-            'message'   => $this->message,
-            'data'      => $this->resource
-        ];
+        $payload = new Payload();
+        return $payload->toArrayPayload($request, $this->status, $this->message, $this->resource);
+        
     }
-
-    public function __construct($status, $message, $resource)
-    {
-        parent::__construct($resource);
-        $this->status  = $status;
-        $this->message = $message;
-    }
-
-
-    public $status;
-    public $message;
 }

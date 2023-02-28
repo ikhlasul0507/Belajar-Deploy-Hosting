@@ -31,6 +31,7 @@ class RegisterController extends Controller
 
         //create user
         $user = User::create([
+            'email_verified_at' => null,
             'name'      => $request->name,
             'email'     => $request->email,
             'password'  => bcrypt($request->password)
