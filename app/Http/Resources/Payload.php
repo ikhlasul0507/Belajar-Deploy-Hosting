@@ -29,31 +29,4 @@ class Payload
                 ]
                     ],$kode);
     }
-
-    public function toArrayFailed($request, $status, $message, $resource , $kode)
-    {
-        return response()->json([
-            config('global.name') => [
-                'header' =>[
-                'request_id' => Str::uuid(),
-                'version'   => config('global.version'),
-                'server_address'   => $request->ip(),
-                'status'   => false,
-                'timestamp' => config('global.date_now'),
-                ],
-                'payload' => [
-                    'status'=>
-                        [
-                            'success' => false,
-                            'message'   => $message,
-                            'detail' => null
-                        ]
-                ],
-                'data' => [
-                    'meta' => null,
-                    'content' => null
-                    ]
-            ]
-    ], $kode);
-    }
 }

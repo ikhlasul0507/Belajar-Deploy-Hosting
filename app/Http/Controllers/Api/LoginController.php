@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use App\Http\Resources\Payload;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -16,6 +16,7 @@ class LoginController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $payload = new Payload();
         //set validation
         $validator = Validator::make($request->all(), [
             'email'     => 'required',
@@ -24,7 +25,7 @@ class LoginController extends Controller
 
         //if validation fails
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return $payload->toArrayPayload(false, $validator->errors(), "", 422);
         }
 
         //get credentials from request
@@ -32,18 +33,15 @@ class LoginController extends Controller
 
         //if auth failed
         if(!$token = auth()->guard('api')->attempt($credentials)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Email atau Password Anda salah'
-            ], 401);
+            return $payload->toArrayPayload(false, config('message.password_wrong'), "", 401);
         }
 
         //if auth success
-        return response()->json([
-            'success' => true,
+        $post = [
             'user'    => auth()->guard('api')->user(),    
             'token'   => $token,   
-            'exp' => env('JWT_TTL')
-        ], 200);
+            'exp' => config('jwt.ttl')
+        ];
+        return $payload->toArrayPayload(true, config('message.login_success'), $post, 200);
     }
 }

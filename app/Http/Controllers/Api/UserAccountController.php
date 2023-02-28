@@ -22,12 +22,12 @@ class UserAccountController extends Controller
         $payload = new Payload();
         $users = new UserAccount;
         $result =  UserAccount::select($users->showField()['fieldTable'])->latest()->paginate(10);
-        return $payload->toArrayPayload(false, config('message.result_get'), $result, 200);
+        return $payload->toArrayPayload(true, config('message.result_get'), $result, 200);
     }
     public function show(UserAccount $userAccount)
     {
         $payload = new Payload();
-        return $payload->toArrayPayload(false, config('message.result_get'), $userAccount, 200);
+        return $payload->toArrayPayload(true, config('message.result_get'), $userAccount, 200);
     }
 
     public function store(Request $request)
@@ -54,6 +54,6 @@ class UserAccountController extends Controller
             'deleted_by'   => $request->deleted_by,
             'deleted'   => $request->deleted,
         ]);
-        return $payload->toArrayPayload(false, config('message.result_post'), $post, 200);
+        return $payload->toArrayPayload(true, config('message.result_post'), $post, 200);
     }
 }
