@@ -20,7 +20,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of the exception types that are not reported.
      *
-     * @var array<int, class-string<Throwable>>
+     * @var array
      */
     protected $dontReport = [
         //
@@ -29,7 +29,7 @@ class Handler extends ExceptionHandler
     /**
      * A list of the inputs that are never flashed for validation exceptions.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $dontFlash = [
         'current_password',
@@ -44,27 +44,112 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        // $this->reportable(function (Throwable $e) {
-        //     //
-        // });
-            
-        // if ($exception instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException) {
-        //     return response()->json(["error" => $exception->getMessage()], 401);
-        // }
-        
-        $this->renderable(function ($exception, $request) {
-
-            // return response()->view('errors.custom', [], 500);
-            return response()->json(['error' => $request], 401);
-            if ($exception instanceof TokenExpiredException) {
-                return response()->json(['error' => 'Token Expired'], 401);
-            } else if ($exception instanceof TokenInvalidException) {
-                return response()->json(['error' => 'Token Invalid'], 401);
-            } else if ($exception instanceof JWTException) {
-                return response()->json(['error' => 'Token Absent'], 401);
-            }
-        });
-        
+        $this->reportable(function () {});
     }
 
+    // Sentry reporting
+    public function report(Throwable $exception)
+    {
+        if (app()->bound('sentry') && $this->shouldReport($exception)) {
+            app('sentry')->captureException($exception);
+        }
+
+        parent::report($exception);
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
+     */
+    public function render($request, Throwable $exception)
+    {
+        if ($request->isJson()) {
+            return $this->handleApiException($request, $exception);
+        }
+
+        return parent::render($request, $exception);
+    }
+
+    private function handleApiException($request, Throwable $exception)
+    {
+        $exception = $this->prepareException($exception);
+
+        if ($exception instanceof \Illuminate\Http\Exceptions\HttpResponseException) {
+            $exception = $exception->getResponse();
+        }
+
+        if ($exception instanceof \Illuminate\Auth\AuthenticationException) {
+            $exception = $this->unauthenticated($request, $exception);
+        }
+
+        if ($exception instanceof \Illuminate\Validation\ValidationException) {
+            $exception = $this->convertValidationExceptionToResponse($exception, $request);
+        }
+
+        return $this->customApiResponse($exception);
+    }
+
+    private function customApiResponse($exception)
+    {
+        $statusCode = 500;
+
+        if (method_exists($exception, 'getStatusCode')) {
+            $statusCode = $exception->getStatusCode();
+        }
+
+        $response = [];
+
+        switch ($statusCode) {
+        case 401:
+            $response['title'] = 'Unauthorized';
+            break;
+        case 403:
+            $response['title'] = 'Forbidden';
+            break;
+        case 404:
+            $response['title'] = 'Not Found';
+            break;
+        case 405:
+            $response['title'] = 'Method Not Allowed';
+            break;
+        case 422:
+            $response['title'] = 'Unprocessable Entity';
+            // $response['title'] = $exception->original['message'];
+            if (isset($exception->original['errors'])) {
+                $response['detail'] = $exception->original['errors'];
+            }
+            break;
+        case 429:
+            $response['title'] = 'Too Many Requests';
+            break;
+        default:
+            $response['title'] = 'Whoops, looks like something went wrong';
+            break;
+        }
+
+        if (method_exists($exception, 'getMessage')) {
+            if ($exception->getMessage() != null) {
+                $response['title'] = $exception->getMessage();
+                if ($exception->getMessage() == 'Invalid scope(s) provided.') {
+                    $response['title'] = 'Invalid Scope';
+                } elseif (str_contains($exception->getMessage(), 'No query results for model')) {
+                    $response['title'] = 'Not Found';
+                }
+            }
+        }
+
+        $response['status'] = $statusCode;
+        $response['type'] = 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/' . $statusCode;
+
+        if (config('app.debug')) {
+            $response['trace'] = $exception->getTrace();
+        }
+
+        return response()->json(['error' => $response], $statusCode)->header('Content-Type', 'application/problem+json');
+    }
 }
