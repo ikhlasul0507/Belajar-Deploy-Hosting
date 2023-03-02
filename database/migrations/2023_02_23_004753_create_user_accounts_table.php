@@ -23,6 +23,7 @@ class CreateUserAccountsTable extends Migration
             $table->integer('deleted_by')->default(0);
             $table->boolean('deleted')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

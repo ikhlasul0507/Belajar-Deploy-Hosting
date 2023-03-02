@@ -21,7 +21,7 @@ Route::post('/logout', App\Http\Controllers\Api\LogoutController::class)->name('
 Route::group([
     'middleware' => ['auth:api'],
     'prefix' => 'halo'
-], function ($router) {
+], function () {
     Route::apiResource('/userAccounts', App\Http\Controllers\Api\UserAccountController::class);
     Route::apiResource('/posts', App\Http\Controllers\Api\PostController::class);
 });

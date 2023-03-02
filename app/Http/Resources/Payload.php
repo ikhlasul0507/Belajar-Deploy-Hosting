@@ -4,7 +4,7 @@ use Illuminate\Support\Str;
 
 class Payload
 { 
-    public function toArrayPayload($status, $message, $resource, $kode)
+    public function toArrayPayload($status, $message = "", $resource = null, $kode, $count = 0)
     {
         return response()->json([
                 config('global.name') => [
@@ -24,6 +24,7 @@ class Payload
                     ],
                     'data' => [
                         'meta' => null,
+                        'total_data' => $count,
                         'content' => $resource
                         ]
                 ]

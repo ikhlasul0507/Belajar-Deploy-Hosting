@@ -7,7 +7,6 @@ use App\Http\Resources\UserAccountResource;
 use App\Http\Resources\Payload;
 use App\Models\UserAccount;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class UserAccountController extends Controller
@@ -17,43 +16,39 @@ class UserAccountController extends Controller
         // $this->middleware('auth:api');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $payload = new Payload();
         $users = new UserAccount;
-        $result =  UserAccount::select($users->showField()['fieldTable'])->latest()->paginate(10);
-        return $payload->toArrayPayload(true, config('message.result_get'), $result, 200);
+        return $payload->toArrayPayload(true, config('message.result_get'), $users->doGetlistUserAccount($request), 200, ($request->deleted ? $users->doCountListTrash() : ($request->filter !== null ?  $users->doCountSearchUserAccount($request):$users->doCountUserAccount())));
     }
-    public function show(UserAccount $userAccount)
+    public function show($id)
     {
         $payload = new Payload();
-        return $payload->toArrayPayload(true, config('message.result_get'), $userAccount, 200);
+        $users = new UserAccount;
+        if ($users->doCountUserAccount($id) == 0){
+            return $payload->toArrayPayload(false, config('message.result_data_found'), null, 404);
+        }
+
+        return $payload->toArrayPayload(true, config('message.result_get'), $users->doViewUserAccount($id), 200, $users->doCountUserAccount($id));
     }
 
     public function store(Request $request)
     {
         $payload = new Payload();
-        $validator = Validator::make($request->all(), [
-            'name'   => 'required',
-            'visitor'   => 'required',
-            'created_by'   => 'required',
-            'updated_by'   => 'required',
-            'deleted_by'   => 'required',
-            'deleted'   => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return $payload->toArrayPayload(false, $validator->errors(), "", 422);
+        $users = new UserAccount;
+        if ($users->validateUserAccount($request)->fails()) {
+            return $payload->toArrayPayload(false,$users->validateUserAccount($request)->errors(), "", 422);
         }
-        $post = UserAccount::create([
-            'uuid'     => Str::uuid(),
-            'name'   => $request->name,
-            'visitor'   => $request->visitor,
-            'created_by'   => $request->created_by,
-            'updated_by'   => $request->updated_by,
-            'deleted_by'   => $request->deleted_by,
-            'deleted'   => $request->deleted,
-        ]);
-        return $payload->toArrayPayload(true, config('message.result_post'), $post, 200);
+        return $payload->toArrayPayload(true, config('message.result_post'), $users->doInsertUserAccount($request), 200);
+    }
+    public function destroy($id)
+    {
+        $payload = new Payload();
+        $users = new UserAccount;
+        if ($users->doCountUserAccount($id) == 0){
+            return $payload->toArrayPayload(false, config('message.result_data_found'), null, 404);
+        }
+        return $payload->toArrayPayload(true, config('message.result_delete'), $users->doDeleteUserAccount($id), 200, $users->doCountUserAccount($id));
     }
 }
