@@ -12,7 +12,6 @@ class UserAccount extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-
     protected $fillable = [
         'uuid',
         'name',
@@ -23,7 +22,11 @@ class UserAccount extends Model
         'deleted',
     ];
 
-    // -----------------------------Get Field --------------------------------//
+    /*
+    |--------------------------------------------------------------------------
+    | Get Field Names
+    |--------------------------------------------------------------------------
+    */
 	public function showField()
 	{
 		return [
@@ -31,7 +34,11 @@ class UserAccount extends Model
             'fieldTableView' => ['id','uuid','name','visitor','created_at','updated_at','deleted'],
         ];
 	}
-    // -----------------------------Validate User --------------------------------//
+    /*
+    |--------------------------------------------------------------------------
+    | Validate User
+    |--------------------------------------------------------------------------
+    */
     public function validateUserAccount($request)
     {
         return Validator::make($request->all(), [
@@ -44,7 +51,11 @@ class UserAccount extends Model
         ]);
     }
 
-    // -----------------------------Function Do --------------------------------//
+    /*
+    |--------------------------------------------------------------------------
+    | Function Do
+    |--------------------------------------------------------------------------
+    */
     public function doGetlistUserAccount ($request)
     {
         if ($request->filter !== null) {
@@ -52,16 +63,10 @@ class UserAccount extends Model
             return $this->formatOUTList(UserAccount::where($data[0],'LIKE','%'.$data[1].'%')->get());
         }
         if ($request->deleted === false) {
-            return  $this->formatOUTList(UserAccount::select($this->showField()['fieldTableList'])->latest()->paginate($request->limit));
+            return  $this->formatOUTList(UserAccount::select($this->showField()['fieldTableList'])->latest()->paginate($request->limit !== null ? $request->limit :5));
         }else {
             return  UserAccount::onlyTrashed()->get();
         }
-
-        // searching a single column
-        // User::whereLike('name', $searchTerm)->get();
-
-        // // searching multiple columns in one go
-        // User::whereLike(['name', 'email'], $searchTerm)->get();
     }
 
     public function formatOUTList($result)

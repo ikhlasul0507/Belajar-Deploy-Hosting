@@ -1,9 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\TodoController;
 /*
 |--------------------------------------------------------------------------
 | API Auth
@@ -12,6 +9,13 @@ use App\Http\Controllers\TodoController;
 Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->name('register');
 Route::post('/login', App\Http\Controllers\Api\LoginController::class)->name('login');
 Route::post('/logout', App\Http\Controllers\Api\LogoutController::class)->name('logout');
+
+/*
+|--------------------------------------------------------------------------
+| API Helth
+|--------------------------------------------------------------------------
+*/
+// Route::post('/health', App\Http\Controllers\Api\RegisterController::class)->name('register');
 
 /*
 |--------------------------------------------------------------------------
