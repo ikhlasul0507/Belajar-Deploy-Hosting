@@ -57,7 +57,7 @@ class PostController extends Controller
         ]);
 
         //return response
-        return new PostResource(true, 'Data Post Berhasil Ditambahkan!', $post);
+        return $post;
     }
 
     public function show(Post $post)

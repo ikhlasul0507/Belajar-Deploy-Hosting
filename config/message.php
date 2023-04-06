@@ -14,4 +14,5 @@ return [
     'password_wrong' => 'Email dan password salah !',
     
     'update_at_not_match' => 'Data telah di lock oleh akun lain !',
+
 ];

@@ -28,4 +28,6 @@ Route::group([
 ], function () {
     Route::apiResource('/userAccounts', App\Http\Controllers\Api\UserAccountController::class);
     Route::apiResource('/posts', App\Http\Controllers\Api\PostController::class);
+    Route::apiResource('/package', App\Http\Controllers\Api\PackageController::class);
+    Route::apiResource('/accountPayment', App\Http\Controllers\Api\AccountPaymentController::class);
 });

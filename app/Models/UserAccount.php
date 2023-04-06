@@ -12,6 +12,7 @@ class UserAccount extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+    
     protected $fillable = [
         'uuid',
         'name',
@@ -27,13 +28,25 @@ class UserAccount extends Model
     | Get Field Names
     |--------------------------------------------------------------------------
     */
-	public function showField()
+	private function showField()
 	{
 		return [
-            'fieldTableList' => ['id','uuid','name','visitor','created_at','updated_at'],
+            'fieldTableList' => ['id','uuid','name','visitor'],
             'fieldTableView' => ['id','uuid','name','visitor','created_at','updated_at','deleted'],
+            'fieldTableInsert' => ['uuid','name','visitor','created_by','updated_by','deleted_by','deleted'],
         ];
 	}
+    private function fieldValidate()
+    {
+        return [
+            'name'   => 'required',
+            'visitor'   => 'required',
+            'created_by'   => 'required',
+            'updated_by'   => 'required',
+            'deleted_by'   => 'required',
+            'deleted'   => 'required',
+        ];
+    }
     /*
     |--------------------------------------------------------------------------
     | Validate User
@@ -41,14 +54,7 @@ class UserAccount extends Model
     */
     public function validateUserAccount($request)
     {
-        return Validator::make($request->all(), [
-            'name'   => 'required',
-            'visitor'   => 'required',
-            'created_by'   => 'required',
-            'updated_by'   => 'required',
-            'deleted_by'   => 'required',
-            'deleted'   => 'required',
-        ]);
+        return Validator::make($request->all(),$this->fieldValidate());
     }
 
     /*
@@ -58,12 +64,12 @@ class UserAccount extends Model
     */
     public function doGetlistUserAccount ($request)
     {
-        if ($request->filter !== null) {
+        if ($request->filter !== null && $request->deleted === false) {
             $data = explode(" ",$request->filter);
             return $this->formatOUTList(UserAccount::where($data[0],'LIKE','%'.$data[1].'%')->get());
         }
         if ($request->deleted === false) {
-            return  $this->formatOUTList(UserAccount::select($this->showField()['fieldTableList'])->latest()->paginate($request->limit !== null ? $request->limit :5));
+            return  $this->formatOUTList(UserAccount::select(['id','uuid','name','visitor'])->latest()->paginate($request->limit !== null ? $request->limit :5));
         }else {
             return  UserAccount::onlyTrashed()->get();
         }
@@ -71,12 +77,14 @@ class UserAccount extends Model
 
     public function formatOUTList($result)
     {
+        $getField = $this->showField()['fieldTableList'];
         $value_result = [];
         foreach ($result as $key => $value) {
             array_push($value_result,[
-                'id' => $value->id,
-                'name' => $value->name,
-                'visitor' => $value->visitor,
+                $getField[0] => $value->id,
+                $getField[1] => $value->uuid,
+                $getField[2] => $value->name,
+                $getField[3] => $value->visitor,
                 'dev' =>[
                     'id' => 1,
                     'name' => 'Admin'
@@ -88,14 +96,15 @@ class UserAccount extends Model
 
     public function doInsertUserAccount ($request)
     {
+        $getField = $this->showField()['fieldTableInsert'];
         return UserAccount::create([
-            'uuid'     => Str::uuid(),
-            'name'   => $request->name,
-            'visitor'   => $request->visitor,
-            'created_by'   => $request->created_by,
-            'updated_by'   => $request->updated_by,
-            'deleted_by'   => $request->deleted_by,
-            'deleted'   => $request->deleted,
+            $getField[0]     => Str::uuid(),
+            $getField[1]   => $request->name,
+            $getField[2]   => $request->visitor,
+            $getField[3]   => $request->created_by,
+            $getField[4]   => $request->updated_by,
+            $getField[5]   => $request->deleted_by,
+            $getField[6]   => $request->deleted,
         ]);
     }
 
@@ -106,14 +115,15 @@ class UserAccount extends Model
 
     public function formatOUTView($result)
     {
+        $getField = $this->showField()['fieldTableView'];
         return [
-            'id' => $result->id,
-            'uuid' => $result->uuid,
-            'name' => $result->name,
-            'visitor' => $result->visitor,
-            'created_at' => $result->created_at,
-            'updated_at' => $result->updated_at,
-            'deleted' => $result->deleted,
+            $getField[0] => $result->id,
+            $getField[1] => $result->uuid,
+            $getField[2] => $result->name,
+            $getField[3] => $result->visitor,
+            $getField[4] => $result->created_at,
+            $getField[5] => $result->updated_at,
+            $getField[6] => $result->deleted,
             'dev' =>[
                 'id' => 1,
                 'name' => 'Admin'

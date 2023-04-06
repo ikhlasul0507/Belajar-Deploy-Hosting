@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\UserAccountResource;
 use App\Http\Resources\Payload;
 use App\Models\UserAccount;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class UserAccountController extends Controller
 {
