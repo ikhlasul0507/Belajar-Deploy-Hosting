@@ -63,7 +63,7 @@
                 $getField[6]   => $request->amount,
             ]);
         }
-
+        
         public function deletePackage($id)
         {
             $Package = Package::find($id);

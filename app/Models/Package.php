@@ -52,10 +52,10 @@ class Package extends Model
     private function fieldValidate()
     {
         return [
-            'title'   => 'required',
-            'description'   => 'required',
-            'amount'   => 'required',
-            'detail' => 'required',
+            'title'   => config('constanta.validate_title'),
+            'description'   => config('constanta.validate_description'),
+            'amount'   => config('constanta.validate_amount'),
+            'detail' => config('constanta.validate_detail'),
         ];
     }
 
@@ -99,7 +99,19 @@ class Package extends Model
     public function doUpdatePackage ($request, $id)
     {
         $packages = new PackageRepository();
-        return $packages->updateDataPackage($this->fieldTableInsertOrUpdate(), $request, $id);
+        $packages_detail = new Package_detail();
+        if ( $id > 0)
+        {
+            if ($packages->updateDataPackage($this->fieldTableInsertOrUpdate(), $request, $id))
+            {
+                $packages_detail->doForceDeletePackageDetail($id);
+                for ($i = 0; $i < count($request->detail); $i++) {
+                    $packages_detail->doInsertPackageDetail($request->detail[$i], $id);
+                } 
+            }
+
+        }
+        return true;
     }
 
     public function doViewPackage($id)
@@ -145,7 +157,7 @@ class Package extends Model
                 $getField[3] => $value->description,
                 $getField[4] => $value->optional_description,
                 $getField[5] => $value->amount,
-                $getField[6] => $packages_detail->doGetlistPackage($value->id)
+                $getField[6] => $packages_detail->doGetlistPackageDetail($value->id)
             ]);
         }
         return $value_result;
@@ -163,7 +175,7 @@ class Package extends Model
             $getField[4] => $result->title,
             $getField[5] => $result->description,
             $getField[6] => $result->optional_description,
-            $getField[7] => $packages_detail->doGetlistPackage($result->id),
+            $getField[7] => $packages_detail->doGetlistPackageDetail($result->id),
             $getField[8] => $result->amount,
             $getField[9] => $result->created_at,
             $getField[10] => $result->updated_at

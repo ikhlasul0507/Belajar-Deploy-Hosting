@@ -54,7 +54,7 @@ class Package_detail extends Model
         return $packages_detail->insertDataPackageDetail($this->fieldTableInsertOrUpdate(), $detail, $id);
     }
 
-    public function doGetlistPackage ($id)
+    public function doGetlistPackageDetail ($id)
     {
         $packages_detail = new PackageDetailRepository();
         if ($id > 0)  {
@@ -76,4 +76,11 @@ class Package_detail extends Model
         }
         return $value_result;
     }
+
+    public function doForceDeletePackageDetail($id)
+    {
+        $packages_detail = new PackageDetailRepository();
+        return $packages_detail->forceDeletePackageDetail($id);
+    }
+
 }

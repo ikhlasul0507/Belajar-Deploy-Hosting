@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Validator;
 use App\Repository\AccountPaymentRepository;
-use Illuminate\Support\Facades\Storage;
+
 
 class Account_payment extends Model
 {
@@ -30,12 +30,12 @@ class Account_payment extends Model
 
     private function fieldTableList()
     {
-        return ['id','user_id','visitor','name','jenis','optional_description','account_number','detail_photo'];
+        return ['id','name','jenis','optional_description','account_number','detail_photo'];
     }
 
     private function fieldTableView()
     {
-        return ['id','uuid','user_id','visitor','title','description','optional_description','details','amount','created_at','updated_at'];
+        return ['id','uuid','user_id','visitor','name','jenis','optional_description','account_number','detail_photo','created_at','updated_at'];
     }
 
     private function fieldTableInsertOrUpdate()
@@ -54,7 +54,7 @@ class Account_payment extends Model
     {
         return [
             'photo'     => config('constanta.validate_photo'),
-            'content'   => 'required',
+            'content'   => config('constanta.validate_content'),
         ];
     }
 
@@ -70,26 +70,64 @@ class Account_payment extends Model
     */
     public function doGetlistAccountPayment ($request)
     {
-        $AccountPayments = new AccountPaymentRepository();
-        
-        return "RER";
+        $accountPayments = new AccountPaymentRepository();
+    
         if ($request->filter !== null && $request->deleted === false) {
-            return $this->formatOUTList($AccountPayments->listSearchAccountPayment($request));
+            return $this->formatOUTList($accountPayments->listSearchAccountPayment($request));
         }
         if ($request->deleted === false) {
-            return  $this->formatOUTList($AccountPayments->listAccountPayment($request));
+            return  $this->formatOUTList($accountPayments->listAccountPayment($request));
         }else {
-            return  $AccountPayments->listDeleteAccountPayment();
+            return  $accountPayments->listDeleteAccountPayment();
         }
     }
 
     public function doInsertAccountPayment ($request)
     {
-        $AccountPayments = new AccountPaymentRepository();
+        $accountPayments = new AccountPaymentRepository();
         $image = $request->file(config('constanta.photo_field_body'));
         $filename = $image->hashName();
         $image->storeAs(config('constanta.path_account'), $filename);
-        return $AccountPayments->insertDataAccountPayment($this->fieldTableInsertOrUpdate(), json_decode($request->content), $filename);
+        return $accountPayments->insertDataAccountPayment($this->fieldTableInsertOrUpdate(), json_decode($request->content), $filename)->id;
+    }
+
+    public function doUpdateAccountPayment ($request, $id)
+    {
+        $accountPayments = new AccountPaymentRepository();
+        $image = $request->file(config('constanta.photo_field_body'));
+        $filename = $image->hashName();
+        $image->storeAs(config('constanta.path_account'), $filename);
+        return $accountPayments->updateDataAccountPayment($this->fieldTableInsertOrUpdate(), $request, $filename, $id);
+    }
+
+    public function doViewAccountPayment($id)
+    {
+        $accountPayments = new AccountPaymentRepository();
+        return $this->formatOUTView($accountPayments->viewDetailAccountPayment($id));
+    }
+
+    public function doDeleteAccountPayment($id)
+    {
+        $accountPayments = new AccountPaymentRepository();
+        return $accountPayments->deleteAccountPayment($id);
+    }
+
+    public function doCountAccountPayment($id = 0)
+    {
+        $accountPayments = new AccountPaymentRepository();
+        return $accountPayments->countAccountPayment($id);
+    }
+
+    public function doCountSearchAccountPayment($request)
+    {
+        $accountPayments = new AccountPaymentRepository();
+        return $accountPayments->countSearchAccountPayment($request);
+    }
+
+    public function doCountListTrash()
+    {
+        $accountPayments = new AccountPaymentRepository();
+        return $accountPayments->countListTrash();
     }
 
     public function formatOUTList($result)
@@ -99,15 +137,31 @@ class Account_payment extends Model
         foreach ($result as $key => $value) {
             array_push($value_result,[
                 $getField[0] => $value->id,
-                $getField[1] => $value->user_id,
-                $getField[2] => $value->visitor,
-                $getField[3] => $value->name,
-                $getField[4] => $value->jenis,
-                $getField[5] => $value->optional_description,
-                $getField[6] => $value->account_number,
-                $getField[7] => $value->detail_photo
+                $getField[1] => $value->name,
+                $getField[2] => $value->jenis,
+                $getField[3] => $value->optional_description,
+                $getField[4] => $value->account_number,
+                $getField[5] => json_decode($value->detail_photo)
             ]);
         }
         return $value_result;
+    }
+
+    public function formatOUTView($result)
+    {
+        $getField = $this->fieldTableView();
+        return [
+            $getField[0] => $result->id,
+            $getField[1] => $result->uuid,
+            $getField[2] => $result->user_id,
+            $getField[3] => $result->visitor,
+            $getField[4] => $result->name,
+            $getField[5] => $result->jenis,
+            $getField[6] => $result->optional_description,
+            $getField[7] => $result->account_number,
+            $getField[8] => json_decode($result->detail_photo),
+            $getField[9] => $result->created_at,
+            $getField[10] => $result->updated_at
+        ];
     }
 }

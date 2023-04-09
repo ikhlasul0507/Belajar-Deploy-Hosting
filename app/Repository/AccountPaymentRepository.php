@@ -2,7 +2,7 @@
     namespace App\Repository;
     use App\Models\Account_payment;
     use Illuminate\Support\Str;
-
+    use Illuminate\Support\Facades\Storage;
     class AccountPaymentRepository {
 
         public function listAccountPayment($request)
@@ -28,7 +28,7 @@
 
         public function insertDataAccountPayment($getField, $request, $filename)
         {
-            return Account_payment::create([
+            return Account_payment::create( [
                 $getField[0]   => Str::uuid(),
                 $getField[1]   => $request->user_id,
                 $getField[2]   => $request->visitor,
@@ -36,42 +36,40 @@
                 $getField[4]   => $request->jenis,
                 $getField[5]   => $request->optional_description,
                 $getField[6]   => $request->account_number,
-                $getField[7]   => [
+                $getField[7]   => json_encode([
                     'path' => url(config('constanta.path_account')),
                     'filename' => $filename
-                ]
+                ])
             ]);
 
         }
 
-        public function insertDataAccountPaymentDetail($getField, $request)
+        public function updateDataAccountPayment($getField, $request, $filename, $id)
         {
-            return Account_payment::create([
+               
+            $accountPayment = Account_payment::find($id);
+            $requestContent = json_decode($request->content);
+            Storage::delete(config('constanta.path_account').json_decode($accountPayment->detail_photo)->filename);
+            return  $accountPayment->update([
                 $getField[0]   => Str::uuid(),
-                $getField[1]   => $request->user_id,
-                $getField[2]   => $request->visitor,
-                $getField[3]   => $request->title,
-                $getField[4]   => $request->description,
-                $getField[5]   => $request->optional_description,
-                $getField[6]   => $request->amount,
-            ]);
-
-        }
-
-        public function updateDataAccountPayment($getField, $request, $id)
-        {
-            return Account_payment::find($id)->update([
-                $getField[3]   => $request->title,
-                $getField[4]   => $request->description,
-                $getField[5]   => $request->optional_description,
-                $getField[6]   => $request->amount,
+                $getField[1]   => $requestContent->user_id,
+                $getField[2]   => $requestContent->visitor,
+                $getField[3]   => $requestContent->name,
+                $getField[4]   => $requestContent->jenis,
+                $getField[5]   => $requestContent->optional_description,
+                $getField[6]   => $requestContent->account_number,
+                $getField[7]   => json_encode([
+                    'path' => url(config('constanta.path_account')),
+                    'filename' => $filename
+                ])
             ]);
         }
 
         public function deleteAccountPayment($id)
         {
-            $AccountPayment = Account_payment::find($id);
-            return $AccountPayment->delete();
+            $accountPayment = Account_payment::find($id);
+            Storage::delete(config('constanta.path_account').json_decode($accountPayment->detail_photo)->filename);
+            return $accountPayment->delete();
         }
 
         public function countAccountPayment($id)

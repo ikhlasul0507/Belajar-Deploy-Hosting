@@ -20,6 +20,11 @@
             return Package_detail::where('package_id',$id)->orderBy('sequence', 'ASC')->get();
         }
 
+        public function forceDeletePackageDetail($id)
+        {
+            return Package_detail::where('package_id',$id)->forceDelete();
+        }
+
     }
 
 ?>

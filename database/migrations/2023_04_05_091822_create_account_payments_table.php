@@ -22,7 +22,7 @@ class CreateAccountPaymentsTable extends Migration
             $table->text('jenis');
             $table->text('optional_description');
             $table->double('account_number', 55, 2);
-            $table->json('detail_photo');
+            $table->text('detail_photo');
             $table->timestamps();
             $table->softDeletes();
         });

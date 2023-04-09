@@ -15,7 +15,7 @@ Route::post('/logout', App\Http\Controllers\Api\LogoutController::class)->name('
 | API Helth
 |--------------------------------------------------------------------------
 */
-// Route::post('/health', App\Http\Controllers\Api\RegisterController::class)->name('register');
+Route::apiResource('/health', App\Http\Controllers\Api\HealthController::class);
 
 /*
 |--------------------------------------------------------------------------
