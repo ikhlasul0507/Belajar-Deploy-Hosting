@@ -9,7 +9,9 @@ return [
     'result_delete' => 'Data Berhasil Di Hapus !',
     'result_put' => 'Data Berhasil Di Update !',
     'result_data_found' => 'Data tidak ditemukan !',
-    
+    'result_data_found_user' => 'Data user tidak ditemukan !',
+    'result_data_found_package' => 'Data package tidak ditemukan !',
+    'result_data_found_payment' => 'Data account payment tidak ditemukan !',
     'login_success' => 'Login Berhasil !',
     'password_wrong' => 'Email dan password salah !',
     

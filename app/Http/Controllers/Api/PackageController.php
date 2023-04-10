@@ -25,7 +25,7 @@ class PackageController extends Controller
         $payload = new Payload();
         $packages = new Package;
         if ($packages->doCountPackage($id) == 0){
-            return $payload->toArrayPayload(false, config('message.result_data_found'), null, 404);
+            return $payload->toArrayPayload(false, config('message.result_data_found_package'), null, 404);
         }
 
         return $payload->toArrayPayload(true, config('message.result_get'), $packages->doViewPackage($id), 200, $packages->doCountPackage($id));
@@ -46,7 +46,7 @@ class PackageController extends Controller
         $payload = new Payload();
         $packages = new Package;
         if ($packages->doCountPackage($id) == 0){
-            return $payload->toArrayPayload(false, config('message.result_data_found'), null, 404);
+            return $payload->toArrayPayload(false, config('message.result_data_found_package'), null, 404);
         }
         if ($packages->validatePackage($request)->fails()) {
             return $payload->toArrayPayload(false,$packages->validatePackage($request)->errors(), "", 422);
@@ -58,7 +58,7 @@ class PackageController extends Controller
         $payload = new Payload();
         $packages = new Package;
         if ($packages->doCountPackage($id) == 0){
-            return $payload->toArrayPayload(false, config('message.result_data_found'), null, 404);
+            return $payload->toArrayPayload(false, config('message.result_data_found_package'), null, 404);
         }
         return $payload->toArrayPayload(true, config('message.result_delete'), $packages->doDeletePackage($id), 200, $packages->doCountPackage($id));
     }

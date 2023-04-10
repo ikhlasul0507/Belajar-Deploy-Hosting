@@ -25,7 +25,7 @@ class AccountPaymentController extends Controller
         $payload = new Payload();
         $accountPayments = new Account_payment;
         if ($accountPayments->doCountAccountPayment($id) == 0){
-            return $payload->toArrayPayload(false, config('message.result_data_found'), null, 404);
+            return $payload->toArrayPayload(false, config('message.result_data_found_payment'), null, 404);
         }
 
         return $payload->toArrayPayload(true, config('message.result_get'), $accountPayments->doViewAccountPayment($id), 200, $accountPayments->doCountAccountPayment($id));
@@ -46,7 +46,7 @@ class AccountPaymentController extends Controller
         $payload = new Payload();
         $accountPayments = new Account_payment;
         if ($accountPayments->doCountAccountPayment($id) == 0){
-            return $payload->toArrayPayload(false, config('message.result_data_found'), null, 404);
+            return $payload->toArrayPayload(false, config('message.result_data_found_payment'), null, 404);
         }
         if ($accountPayments->validateAccountPayment($request)->fails()) {
             return $payload->toArrayPayload(false,$accountPayments->validateAccountPayment($request)->errors(), "", 422);
@@ -58,7 +58,7 @@ class AccountPaymentController extends Controller
         $payload = new Payload();
         $accountPayments = new Account_payment;
         if ($accountPayments->doCountAccountPayment($id) == 0){
-            return $payload->toArrayPayload(false, config('message.result_data_found'), null, 404);
+            return $payload->toArrayPayload(false, config('message.result_data_found_payment'), null, 404);
         }
         return $payload->toArrayPayload(true, config('message.result_delete'), $accountPayments->doDeleteAccountPayment($id), 200, $accountPayments->doCountAccountPayment($id));
     }
