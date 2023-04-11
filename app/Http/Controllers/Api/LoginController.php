@@ -5,6 +5,8 @@ use App\Http\Resources\Payload;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Models\UserAccount;
+use App\Models\Menu_parent;
 
 class LoginController extends Controller
 {
@@ -17,6 +19,8 @@ class LoginController extends Controller
     public function __invoke(Request $request)
     {
         $payload = new Payload();
+        $users = new UserAccount;
+        $menu = new Menu_parent();
         //set validation
         $validator = Validator::make($request->all(), [
             'email'     => 'required',
@@ -37,8 +41,12 @@ class LoginController extends Controller
         }
 
         //if auth success
+        $result_user = auth()->guard('api')->user();
+        $detail =  $users->doViewUserAccount($result_user->id);
         $post = [
-            'user'    => auth()->guard('api')->user(),    
+            'user'    => $result_user,  
+            'detail' =>$detail,  
+            'list_access_menu' => $menu->doViewMenuParent($detail['list_access_menu']),
             'token'   => $token,   
             'exp' => config('jwt.ttl')
         ];

@@ -17,6 +17,7 @@ class CreatePackagesTable extends Migration
             $table->id();
             $table->uuid('uuid');
             $table->foreignId('user_id');
+            $table->foreignId('menu_id');
             $table->ipAddress('visitor');
             $table->char('title', 100);
             $table->text('description');

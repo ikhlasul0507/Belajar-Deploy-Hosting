@@ -7,7 +7,7 @@
 
         public function listPackage($request)
         {
-            return Package::select(['id','user_id','title','description','optional_description','amount'])->latest()->paginate($request->limit !== null ? $request->limit :5);
+            return Package::select(['id','user_id','menu_id','title','description','optional_description','amount'])->latest()->paginate($request->limit !== null ? $request->limit :5);
         }
 
         public function listSearchPackage($request)
@@ -31,11 +31,12 @@
             return Package::create([
                 $getField[0]   => Str::uuid(),
                 $getField[1]   => $request->user_id,
-                $getField[2]   => $request->visitor,
-                $getField[3]   => $request->title,
-                $getField[4]   => $request->description,
-                $getField[5]   => $request->optional_description,
-                $getField[6]   => $request->amount,
+                $getField[2]   => $request->menu_id,
+                $getField[3]   => $request->visitor,
+                $getField[4]   => $request->title,
+                $getField[5]   => $request->description,
+                $getField[6]   => $request->optional_description,
+                $getField[7]   => $request->amount,
             ]);
 
         }
@@ -57,6 +58,7 @@
         public function updateDataPackage($getField, $request, $id)
         {
             return Package::find($id)->update([
+                $getField[2]   => $request->menu_id,
                 $getField[3]   => $request->title,
                 $getField[4]   => $request->description,
                 $getField[5]   => $request->optional_description,

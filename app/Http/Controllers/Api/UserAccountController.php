@@ -27,7 +27,6 @@ class UserAccountController extends Controller
         if ($users->doCountUserAccount($id) == 0){
             return $payload->toArrayPayload(false, config('message.result_data_found'), null, 404);
         }
-
         return $payload->toArrayPayload(true, config('message.result_get'), $users->doViewUserAccount($id), 200, $users->doCountUserAccount($id));
     }
 

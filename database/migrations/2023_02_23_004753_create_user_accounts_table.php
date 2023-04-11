@@ -16,12 +16,15 @@ class CreateUserAccountsTable extends Migration
         Schema::create('user_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('uuid');
-            $table->char('name')->default(null);
-            $table->ipAddress('visitor')->default(0);
-            $table->integer('created_by')->default(0);
-            $table->integer('updated_by')->default(0);
-            $table->integer('deleted_by')->default(0);
-            $table->boolean('deleted')->default(false);
+            $table->foreignId('user_id');
+            $table->enum('is_super_user', ['N', 'Y'])->default('N');
+            $table->enum('user_level', [1,2,3,4,5])->default(5);
+            $table->text('address1');
+            $table->text('address2');
+            $table->integer('phone');
+            $table->date('user_login_valid_from');
+            $table->date('user_login_valid_thru');
+            $table->text('list_access_menu');
             $table->timestamps();
             $table->softDeletes();
         });

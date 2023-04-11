@@ -19,7 +19,7 @@ class Package extends Model
     | Initiate Field Insert Or Update
     |--------------------------------------------------------------------------
     */
-    protected $fillable = ['uuid','user_id','visitor','title','description','optional_description','amount'];
+    protected $fillable = ['uuid','user_id','menu_id','visitor','title','description','optional_description','amount'];
 
     /*
     |--------------------------------------------------------------------------
@@ -29,17 +29,17 @@ class Package extends Model
 
     private function fieldTableList()
     {
-        return ['id','user_id','title','description','optional_description','amount','details'];
+        return ['id','user_id','menu_id','title','description','optional_description','amount','details'];
     }
 
     private function fieldTableView()
     {
-        return ['id','uuid','user_id','visitor','title','description','optional_description','details','amount','created_at','updated_at'];
+        return ['id','uuid','user_id','menu_id','visitor','title','description','optional_description','details','amount','created_at','updated_at'];
     }
 
     private function fieldTableInsertOrUpdate()
     {
-        return ['uuid','user_id','visitor','title','description','optional_description','amount'];
+        return ['uuid','user_id','menu_id','visitor','title','description','optional_description','amount'];
     }
 
     /*
@@ -52,6 +52,7 @@ class Package extends Model
     private function fieldValidate()
     {
         return [
+            'menu_id' => config('constanta.validate_id'),
             'title'   => config('constanta.validate_title'),
             'description'   => config('constanta.validate_description'),
             'amount'   => config('constanta.validate_amount'),
@@ -153,11 +154,12 @@ class Package extends Model
             array_push($value_result,[
                 $getField[0] => $value->id,
                 $getField[1] => $value->user_id,
-                $getField[2] => $value->title,
-                $getField[3] => $value->description,
-                $getField[4] => $value->optional_description,
-                $getField[5] => $value->amount,
-                $getField[6] => $packages_detail->doGetlistPackageDetail($value->id)
+                $getField[2] => $value->menu_id,
+                $getField[3] => $value->title,
+                $getField[4] => $value->description,
+                $getField[5] => $value->optional_description,
+                $getField[6] => $value->amount,
+                $getField[7] => $packages_detail->doGetlistPackageDetail($value->id)
             ]);
         }
         return $value_result;
@@ -171,14 +173,15 @@ class Package extends Model
             $getField[0] => $result->id,
             $getField[1] => $result->uuid,
             $getField[2] => $result->user_id,
-            $getField[3] => $result->visitor,
-            $getField[4] => $result->title,
-            $getField[5] => $result->description,
-            $getField[6] => $result->optional_description,
-            $getField[7] => $packages_detail->doGetlistPackageDetail($result->id),
-            $getField[8] => $result->amount,
-            $getField[9] => $result->created_at,
-            $getField[10] => $result->updated_at
+            $getField[3] => $result->menu_id,
+            $getField[4] => $result->visitor,
+            $getField[5] => $result->title,
+            $getField[6] => $result->description,
+            $getField[7] => $result->optional_description,
+            $getField[8] => $packages_detail->doGetlistPackageDetail($result->id),
+            $getField[9] => $result->amount,
+            $getField[10] => $result->created_at,
+            $getField[11] => $result->updated_at
         ];
     }
 

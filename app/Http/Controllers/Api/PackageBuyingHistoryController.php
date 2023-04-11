@@ -60,8 +60,17 @@ class PackageBuyingHistoryController extends Controller
     {
         $payload = new Payload();
         $PackageBuyingHistorys = new Package_buying_history;
+        $PackageBuyingHistorys = new Package_buying_history;
+        $accountPayments = new Account_payment;
+        $packages = new Package;
         if ($PackageBuyingHistorys->doCountPackageBuyingHistory($id) == 0){
             return $payload->toArrayPayload(false, config('message.result_data_found'), null, 404);
+        }
+        if ($packages->doCountPackage($request->package_id) == 0){
+            return $payload->toArrayPayload(false, config('message.result_data_found_package'), null, 404);
+        }
+        if ($accountPayments->doCountAccountPayment($request->account_payment_id) == 0){
+            return $payload->toArrayPayload(false, config('message.result_data_found_payment'), null, 404);
         }
         if ($PackageBuyingHistorys->validatePackageBuyingHistory($request)->fails()) {
             return $payload->toArrayPayload(false,$PackageBuyingHistorys->validatePackageBuyingHistory($request)->errors(), "", 422);

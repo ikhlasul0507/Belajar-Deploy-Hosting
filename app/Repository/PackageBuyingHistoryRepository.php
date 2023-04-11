@@ -67,27 +67,13 @@
 
         }
 
-        public function insertDataPackageDetailBuyingHistory($getField, $request)
-        {
-            return Package_buying_history::create([
-                $getField[0]   => Str::uuid(),
-                $getField[1]   => $request->user_id,
-                $getField[2]   => $request->visitor,
-                $getField[3]   => $request->title,
-                $getField[4]   => $request->description,
-                $getField[5]   => $request->optional_description,
-                $getField[6]   => $request->amount,
-            ]);
-
-        }
-
         public function updateDataPackageBuyingHistory($getField, $request, $id)
         {
             return Package_buying_history::find($id)->update([
-                $getField[3]   => $request->title,
-                $getField[4]   => $request->description,
-                $getField[5]   => $request->optional_description,
-                $getField[6]   => $request->amount,
+                $getField[2]   => $request->package_id,
+                $getField[3]   => $request->account_payment_id,
+                $getField[5]   => $request->net_amount,
+                $getField[6]   => $request->status
             ]);
         }
         

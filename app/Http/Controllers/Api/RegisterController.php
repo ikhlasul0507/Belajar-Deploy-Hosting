@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\Payload;
 
 class RegisterController extends Controller
 {
@@ -17,6 +18,8 @@ class RegisterController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $payload = new Payload();
+        $users = new User();
         //set validation
         $validator = Validator::make($request->all(), [
             'name'      => 'required',
@@ -26,28 +29,15 @@ class RegisterController extends Controller
 
         //if validation fails
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return $payload->toArrayPayload(false, $validator->errors(), null, 422);
         }
-
-        //create user
-        $user = User::create([
-            'email_verified_at' => null,
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'password'  => bcrypt($request->password)
-        ]);
-
         //return response JSON user is created
-        if($user) {
-            return response()->json([
-                'success' => true,
-                'user'    => $user,  
-            ], 201);
+        $user = $users->doInsertUserAccount($request);
+        if($user > 0) {
+            return $payload->toArrayPayload(true,  config('message.result_post'),$user, 201);
         }
 
         //return JSON process insert failed 
-        return response()->json([
-            'success' => false,
-        ], 409);
+        return $payload->toArrayPayload(false, $user, null, 409);
     }
 }

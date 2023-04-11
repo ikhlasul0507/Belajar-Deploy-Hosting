@@ -31,4 +31,5 @@ Route::group([
     Route::apiResource('/package', App\Http\Controllers\Api\PackageController::class);
     Route::apiResource('/accountPayment', App\Http\Controllers\Api\AccountPaymentController::class);
     Route::apiResource('/packageBuyingHistory', App\Http\Controllers\Api\PackageBuyingHistoryController::class);
+    Route::apiResource('/menuParent', App\Http\Controllers\Api\MenuParentController::class);
 });

@@ -15,12 +15,15 @@ class UserAccount extends Model
     
     protected $fillable = [
         'uuid',
-        'name',
-        'visitor',
-        'created_by',
-        'updated_by',
-        'deleted_by',
-        'deleted',
+        'user_id',
+        'is_super_user',
+        'user_level',
+        'address1',
+        'address2',
+        'phone',
+        'user_login_valid_from',
+        'user_login_valid_thru',
+        'list_access_menu'
     ];
 
     /*
@@ -32,19 +35,17 @@ class UserAccount extends Model
 	{
 		return [
             'fieldTableList' => ['id','uuid','name','visitor'],
-            'fieldTableView' => ['id','uuid','name','visitor','created_at','updated_at','deleted'],
-            'fieldTableInsert' => ['uuid','name','visitor','created_by','updated_by','deleted_by','deleted'],
+            'fieldTableView' => ['id','uuid','is_super_user','user_level','address1','address2','phone','list_access_menu'],
+            'fieldTableInsert' => ['uuid','user_id','is_super_user','user_level','address1','address2','phone','user_login_valid_from','user_login_valid_thru','list_access_menu'],
         ];
 	}
     private function fieldValidate()
     {
         return [
-            'name'   => 'required',
-            'visitor'   => 'required',
-            'created_by'   => 'required',
-            'updated_by'   => 'required',
-            'deleted_by'   => 'required',
-            'deleted'   => 'required',
+            'name'   => config('constanta.validate_name'),
+            'user_id' => config('constanta.validate_user_id'),
+            'user_level' => config('constanta.validate_user_level'),
+            'address1' => config('constanta.validate_address1'),
         ];
     }
     /*
@@ -94,23 +95,28 @@ class UserAccount extends Model
         return $value_result;
     }
 
-    public function doInsertUserAccount ($request)
+    public function doInsertUserAccount ($request, $user_id = 0)
     {
+        
         $getField = $this->showField()['fieldTableInsert'];
         return UserAccount::create([
-            $getField[0]     => Str::uuid(),
-            $getField[1]   => $request->name,
-            $getField[2]   => $request->visitor,
-            $getField[3]   => $request->created_by,
-            $getField[4]   => $request->updated_by,
-            $getField[5]   => $request->deleted_by,
-            $getField[6]   => $request->deleted,
+            $getField[0]   => Str::uuid(),
+            $getField[1]   => $user_id,
+            $getField[2]   => $request['is_super_user'],
+            $getField[3]   => $request['user_level'],
+            $getField[4]   => $request['address1'],
+            $getField[5]   => $request['address2'],
+            $getField[6]   => $request['phone'],
+            $getField[7]   => $request['user_login_valid_from'],
+            $getField[8]   => $request['user_login_valid_thru'],
+            $getField[9]   => $request['list_access_menu']
         ]);
     }
 
     public function doViewUserAccount($id)
     {
-        return $this->formatOUTView(UserAccount::find($id));
+        return $this->formatOUTView
+        (UserAccount::where('user_id', $id)->first());
     }
 
     public function formatOUTView($result)
@@ -119,15 +125,12 @@ class UserAccount extends Model
         return [
             $getField[0] => $result->id,
             $getField[1] => $result->uuid,
-            $getField[2] => $result->name,
-            $getField[3] => $result->visitor,
-            $getField[4] => $result->created_at,
-            $getField[5] => $result->updated_at,
-            $getField[6] => $result->deleted,
-            'dev' =>[
-                'id' => 1,
-                'name' => 'Admin'
-            ]
+            $getField[2] => $result->is_super_user,
+            $getField[3] => $result->user_level,
+            $getField[4] => $result->address1,
+            $getField[5] => $result->address2,
+            $getField[6] => $result->phone,
+            $getField[7] => $result->list_access_menu,
         ];
     }
 
@@ -142,7 +145,7 @@ class UserAccount extends Model
         if($id == 0){
             return UserAccount::latest()->count();
         }else{
-            return UserAccount::where('id', $id)->latest()->count();
+            return UserAccount::where('user_id', $id)->latest()->count();
         }
     }
 

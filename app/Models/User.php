@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\UserAccount;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -61,5 +62,16 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function doInsertUserAccount($request){
+        $userAccount = new UserAccount();
+        $data = User::create([
+            'email_verified_at' => $request->email,
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'password'  => bcrypt($request->password)
+        ]);
+        return $userAccount->doInsertUserAccount($request->contact_user, $data->id)->id;
     }
 }
