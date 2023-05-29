@@ -1,0 +1,39 @@
+.logo-payment {
+    width: 60px;
+    height: 60px;
+}
+
+.cart-buying:hover {
+    background-color: #e02d1b;
+    cursor: pointer;
+    color: white;
+    border-color: blue
+}
+
+.cart-selected {
+    background-color: #e02d1b;
+    color: white;
+    border-color: blue
+}
+
+.cart-box {
+    width: 33.33333%;
+}
+
+@media only screen and (max-width: 600px) {
+    .cart-box {
+        width: 100%;
+    }
+}
+
+.collapse-item {
+    height: 40px
+}
+
+.collapse-item:hover {
+    cursor: pointer;
+}
+
+#label-langganan {
+    height: 60px
+}

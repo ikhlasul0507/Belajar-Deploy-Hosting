@@ -67,9 +67,13 @@
 <!-- <script src="./config.js"></script> -->
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script type="module" src="page-login/config.js"></script>
 <script type="module">
     import {config , url_resource, resourceAPI, method_api} from "./config.js";
-    addStyleForm()
+
+    window.onload = function() {
+      addStyleForm()
+    }
     $('#btn-regis').click(function () {
         if(!validate()){
           postDataTOAPI()
