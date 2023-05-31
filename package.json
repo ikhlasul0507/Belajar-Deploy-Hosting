@@ -1,8 +1,8 @@
 {
-    "LABEL_LOGIN" : "Welcome",
-    "LABEL_FORGET_PASSWORD" : "Forgot Password?",
-    "LABEL_CREATE_ACCOUNT" : "Create an Account!",
-    "LABEL_ACCOUNT_READY" : "Already have an account? Login!",
-
-    "LABEL_NAME_ERROR" : "Please enter First Name"
+    "LABEL_LOGIN": "Welcome",
+    "LABEL_FORGET_PASSWORD": "Forgot Password?",
+    "LABEL_CREATE_ACCOUNT": "Create an Account!",
+    "LABEL_ACCOUNT_READY": "Already have an account? Login!",
+    "LABEL_NAME_ERROR": "Please enter First Name",
+    "LABEL_TITLE": "Hay Calon"
 }

@@ -157,8 +157,9 @@
         }
 
         function getDataTOAPIMenuUser() {
-            let url = config.url_local + config.path_url + config.path_url_resource + url_resource.menuParent +
-                getMenuFROMAUTH()
+            let url = (config.is_production ? config.url_production : config.url_local) + config.path_url + config
+                .path_url_resource +
+                url_resource.menuParent + getMenuFROMAUTH()
             resourceAPI(url, method_api.get_data, get_token)
                 .then(json => {
                     writeHTMLMENU(json.beramal_com.data.content)

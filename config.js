@@ -1,8 +1,8 @@
 const config = {
   port: 3000,
   url_local: "http://127.0.0.1:8000/",
-  is_production: false,
-  url_production: "",
+  is_production: true,
+  url_production: "http://backend.sgd-dev.com/",
   path_url: "api",
   path_url_resource: "/halo",
   path_folder: "/halo-mahasiswa",
@@ -23,6 +23,7 @@ const config = {
 const url_resource = {
   register: "/register",
   health: "/health",
+  ping: "/ping",
   login: "/login",
   home_client: "/client",
   home_admin: "/admin",

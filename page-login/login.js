@@ -1,3 +1,8 @@
+import {
+  config,
+  url_resource
+} from "../config.js";
+
 $(document).ready(function () {
   $(".page-auth").load("page-login/page-login.php");
   $(".lib-login-head").load("page-login/lib-login-head.php");
@@ -31,8 +36,15 @@ $(document).ready(function () {
     return false;
   });
 
+  (function() {
+    let url = (config.is_production ? config.url_production : config.url_local) + config.path_url + url_resource
+      .ping
+    pingServer(url);
+  })();
+
   async function pingServer(url) {
     let response;
+    localStorage.removeItem(config.key_server_connect)
     try {
       response = await fetch(url);
     } catch (error) {
@@ -52,6 +64,5 @@ $(document).ready(function () {
       localStorage.setItem("server_connect", true)
     }
   }
-
-  pingServer("http://localhost:8000/api/ping");
+  
 });
