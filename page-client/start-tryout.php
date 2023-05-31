@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Start Tryout</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -126,158 +126,6 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-danger text-light sidebar sidebar-dark accordion " style="display: none;" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">HALO<sup>Pelajar</sup></div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Event</span></a>
-            </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading text-light">
-                Langganan
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link text-light collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Paket Halo</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="lihat-paket.html">Lihat Paket</a>
-                        <a class="collapse-item" href="riwayat-paket.html">Riwayat Paket</a>
-                    </div>
-                </div>
-            </li>
-
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading text-light">
-                Halo Belajar
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link text-light collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Halo Kampus</span>
-                </a>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="lihat-materi.html">Lihat Materi</a>
-                        <a class="collapse-item" href="halo-bimbel.html">Halo Bimbel</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link text-light collapsed" href="#" data-toggle="collapse" data-target="#collapseThreee" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Halo Koding</span>
-                </a>
-                <div id="collapseThreee" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">Lihat Materi</a>
-                        <a class="collapse-item" href="cards.html">Halo Bimbel</a>
-                    </div>
-                </div>
-            </li>
-
-            <hr class="sidebar-divider">
-            <!-- Heading -->
-            <div class="sidebar-heading text-light">
-                Halo Tryout
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link text-light collapsed" href="#" data-toggle="collapse" data-target="#collapseThrees" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Halo Polsri</span>
-                </a>
-                <div id="collapseThrees" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">Kerjakan Tryout</a>
-                        <a class="collapse-item" href="cards.html">Lihat Hasil</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link text-light collapsed" href="#" data-toggle="collapse" data-target="#collapseThreess" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Halo Unsri</span>
-                </a>
-                <div id="collapseThreess" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">Kerjakan Tryout</a>
-                        <a class="collapse-item" href="cards.html">Lihat Hasil</a>
-                    </div>
-                </div>
-            </li>
-
-
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
-                <a class="nav-link text-light collapsed" href="#" data-toggle="collapse" data-target="#collapseThreest" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-book"></i>
-                    <span>Setting</span>
-                </a>
-                <div id="collapseThreest" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">Parameter</a>
-                        <a class="collapse-item" href="cards.html">Menu</a>
-                        <a class="collapse-item" href="cards.html">User</a>
-                    </div>
-                </div>
-            </li>
-
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>Yuks</strong> Gabung ke grub telegram !</p>
-                <a class="btn btn-light btn-sm" target="blank" href="https://t.me/+sgb2CTHd7xw3YTU1">Join Us!</a>
-            </div>
-
-        </ul>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -292,32 +140,9 @@
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                 <i class="fa fa-bars"></i>
             </button>
-                    <a href="halo-bimbel.html" class="btn btn-light"><i class="fa fa-arrow-alt-circle-left mr-2"></i>Kembali</a>
                     <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto ">
 
-                        <div class="topbar-divider d-none d-sm-block"></div>
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-light small">Ikhlasul Amal</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-                                </a>
-
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-
+                    <marquee><h1 class="h5 mb-0 text-light text-center">Selamat Mengerjakan, Semoga Berhasil</h1></marquee>
                 </nav>
                 <!-- End of Topbar -->
 
@@ -528,7 +353,7 @@
                         beat.pause();
                         clearInterval();
                         alert("Mohon maaf, waktu pengerjaan habis")
-                        location.replace('halo-bimbel.html')
+                        location.replace("/halo-mahasiswa")
                     }
                 }
             }
