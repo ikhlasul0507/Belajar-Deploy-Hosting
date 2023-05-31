@@ -18,7 +18,7 @@ class Menu_parent extends Model
     | Initiate Field Insert Or Update
     |--------------------------------------------------------------------------
     */
-    protected $fillable = ['uuid','name','name_en','sequence','access_menu','icon','background','available_action','status'];
+    protected $fillable = ['uuid','name','name_en','sequence','access_menu','icon','background','available_action','set_label','status'];
 
     /*
     |--------------------------------------------------------------------------
@@ -28,17 +28,17 @@ class Menu_parent extends Model
 
     private function fieldTableList()
     {
-        return ['id','user_id','menu_id','title','description','optional_description','amount','details'];
+        return ['id','uuid','name','name_en','sequence','access_menu','icon','background','available_action','set_label','status','link_url'];
     }
 
     private function fieldTableView()
     {
-        return ['id','name','available_action'];
+        return ['id','name','available_action','set_label','icon','link_url'];
     }
 
     private function fieldTableInsertOrUpdate()
     {
-        return ['uuid','name','name_en','sequence','access_menu','icon','background','available_action','status'];
+        return ['uuid','name','name_en','sequence','access_menu','icon','background','available_action','set_label','status'];
     }
 
     /*
@@ -132,11 +132,16 @@ class Menu_parent extends Model
         foreach ($result as $key => $value) {
             array_push($value_result,[
                 $getField[0] => $value->id,
-                $getField[1] => $value->user_id,
-                $getField[2] => $value->menu_id,
-                $getField[3] => $value->title,
-                $getField[4] => $value->description,
-                $getField[5] => $value->optional_description,
+                $getField[1] => $value->uuid,
+                $getField[2] => $value->name,
+                $getField[3] => $value->name_en,
+                $getField[4] => $value->sequence,
+                $getField[5] => $value->access_menu,
+                $getField[6] => $value->icon,
+                $getField[7] => $value->background,
+                $getField[8] => $value->available_action,
+                $getField[9] => $value->set_label,
+                $getField[10] => $value->status,
             ]);
         }
         return $value_result;
@@ -151,6 +156,9 @@ class Menu_parent extends Model
                 $getField[0] => $value->id,
                 $getField[1] => $value->name,
                 $getField[2] => $value->available_action,
+                $getField[3] => $value->set_label,
+                $getField[4] => $value->icon,
+                $getField[5] => $value->link_url,
             ]);
         }
         return $value_result;

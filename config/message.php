@@ -14,7 +14,7 @@ return [
     'result_data_found_payment' => 'Data account payment tidak ditemukan !',
     'login_success' => 'Login Berhasil !',
     'password_wrong' => 'Email dan password salah !',
-    
+    'result_register_success' => 'Register Berhasil !',
     'update_at_not_match' => 'Data telah di lock oleh akun lain !',
 
 ];

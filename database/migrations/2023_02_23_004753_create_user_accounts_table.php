@@ -21,7 +21,7 @@ class CreateUserAccountsTable extends Migration
             $table->enum('user_level', [1,2,3,4,5])->default(5);
             $table->text('address1');
             $table->text('address2');
-            $table->integer('phone');
+            $table->bigInteger('phone');
             $table->date('user_login_valid_from');
             $table->date('user_login_valid_thru');
             $table->text('list_access_menu');

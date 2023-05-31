@@ -7,7 +7,7 @@
 
         public function listMenuParent($request)
         {
-            return Menu_parent::select(['id','user_id','visitor','name','jenis','optional_description','account_number','detail_photo'])->latest()->paginate($request->limit !== null ? $request->limit :5);
+            return Menu_parent::select(['id','uuid','name','name_en','sequence','access_menu','icon','background','available_action','set_label','status'])->latest()->paginate($request->limit !== null ? $request->limit :5);
         }
 
         public function listSearchMenuParent($request)
@@ -44,25 +44,23 @@
 
         public function updateDataMenuParent($getField, $request, $id)
         {
-               
             $MenuParent = Menu_parent::find($id);
-            $requestContent = json_decode($request->content);
-            Storage::delete(config('constanta.path_account').json_decode($MenuParent->detail_photo)->filename);
             return  $MenuParent->update([
                 $getField[0]   => Str::uuid(),
-                $getField[1]   => $requestContent->user_id,
-                $getField[2]   => $requestContent->visitor,
-                $getField[3]   => $requestContent->name,
-                $getField[4]   => $requestContent->jenis,
-                $getField[5]   => $requestContent->optional_description,
-                $getField[6]   => $requestContent->account_number,
+                $getField[1]   => $request->name,
+                $getField[2]   => $request->name_en,
+                $getField[3]   => $request->sequence,
+                $getField[4]   => $request->access_menu,
+                $getField[5]   => $request->icon,
+                $getField[6]   => $request->background,
+                $getField[7]   => $request->available_action,
+                $getField[8]   => $request->status,
             ]);
         }
 
         public function deleteMenuParent($id)
         {
             $MenuParent = Menu_parent::find($id);
-            Storage::delete(config('constanta.path_account').json_decode($MenuParent->detail_photo)->filename);
             return $MenuParent->delete();
         }
 

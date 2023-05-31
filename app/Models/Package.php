@@ -73,10 +73,10 @@ class Package extends Model
     public function doGetlistPackage ($request)
     {
         $packages = new PackageRepository();
-        if ($request->filter !== null && $request->deleted === false) {
+        if ($request->filter !== null && $request->deleted === false)  {
             return $this->formatOUTList($packages->listSearchPackage($request));
         }
-        if ($request->deleted === false) {
+        if ($request->deleted === false || $request->deleted === null) {
             return  $this->formatOUTList($packages->listPackage($request));
         }else {
             return  $packages->listDeletePackage();

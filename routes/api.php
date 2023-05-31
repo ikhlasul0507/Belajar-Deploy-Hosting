@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 | API Auth
 |--------------------------------------------------------------------------
 */
+
 Route::post('/register', App\Http\Controllers\Api\RegisterController::class)->name('register');
 Route::post('/login', App\Http\Controllers\Api\LoginController::class)->name('login');
 Route::post('/logout', App\Http\Controllers\Api\LogoutController::class)->name('logout');
@@ -16,6 +17,7 @@ Route::post('/logout', App\Http\Controllers\Api\LogoutController::class)->name('
 |--------------------------------------------------------------------------
 */
 Route::apiResource('/health', App\Http\Controllers\Api\HealthController::class);
+Route::apiResource('/ping', App\Http\Controllers\Api\PingController::class);
 
 /*
 |--------------------------------------------------------------------------

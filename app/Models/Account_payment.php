@@ -20,7 +20,7 @@ class Account_payment extends Model
     | Initiate Field Insert Or Update
     |--------------------------------------------------------------------------
     */
-    protected $fillable = ['uuid','user_id','visitor','name','jenis','optional_description','account_number','detail_photo'];
+    protected $fillable = ['uuid', 'user_id', 'visitor', 'name', 'jenis', 'optional_description', 'account_number', 'detail_photo'];
 
     /*
     |--------------------------------------------------------------------------
@@ -30,17 +30,17 @@ class Account_payment extends Model
 
     private function fieldTableList()
     {
-        return ['id','name','jenis','optional_description','account_number','detail_photo'];
+        return ['id', 'name', 'jenis', 'optional_description', 'account_number', 'detail_photo'];
     }
 
     private function fieldTableView()
     {
-        return ['id','uuid','user_id','visitor','name','jenis','optional_description','account_number','detail_photo','created_at','updated_at'];
+        return ['id', 'uuid', 'user_id', 'visitor', 'name', 'jenis', 'optional_description', 'account_number', 'detail_photo', 'created_at', 'updated_at'];
     }
 
     private function fieldTableInsertOrUpdate()
     {
-        return ['uuid','user_id','visitor','name','jenis','optional_description','account_number','detail_photo'];
+        return ['uuid', 'user_id', 'visitor', 'name', 'jenis', 'optional_description', 'account_number', 'detail_photo'];
     }
 
     /*
@@ -48,7 +48,7 @@ class Account_payment extends Model
     | Validate 
     |--------------------------------------------------------------------------
     */
-    
+
 
     private function fieldValidate()
     {
@@ -60,7 +60,7 @@ class Account_payment extends Model
 
     public function validateAccountPayment($request)
     {
-        return Validator::make($request->all(),$this->fieldValidate());
+        return Validator::make($request->all(), $this->fieldValidate());
     }
 
     /*
@@ -68,21 +68,21 @@ class Account_payment extends Model
     | Function Do
     |--------------------------------------------------------------------------
     */
-    public function doGetlistAccountPayment ($request)
+    public function doGetlistAccountPayment($request)
     {
         $accountPayments = new AccountPaymentRepository();
-    
+
         if ($request->filter !== null && $request->deleted === false) {
             return $this->formatOUTList($accountPayments->listSearchAccountPayment($request));
         }
-        if ($request->deleted === false) {
+        if ($request->deleted === false || $request->deleted === null) {
             return  $this->formatOUTList($accountPayments->listAccountPayment($request));
-        }else {
+        } else {
             return  $accountPayments->listDeleteAccountPayment();
         }
     }
 
-    public function doInsertAccountPayment ($request)
+    public function doInsertAccountPayment($request)
     {
         $accountPayments = new AccountPaymentRepository();
         $image = $request->file(config('constanta.photo_field_body'));
@@ -91,7 +91,7 @@ class Account_payment extends Model
         return $accountPayments->insertDataAccountPayment($this->fieldTableInsertOrUpdate(), json_decode($request->content), $filename)->id;
     }
 
-    public function doUpdateAccountPayment ($request, $id)
+    public function doUpdateAccountPayment($request, $id)
     {
         $accountPayments = new AccountPaymentRepository();
         $image = $request->file(config('constanta.photo_field_body'));
@@ -135,7 +135,7 @@ class Account_payment extends Model
         $getField = $this->fieldTableList();
         $value_result = [];
         foreach ($result as $key => $value) {
-            array_push($value_result,[
+            array_push($value_result, [
                 $getField[0] => $value->id,
                 $getField[1] => $value->name,
                 $getField[2] => $value->jenis,
