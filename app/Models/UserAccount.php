@@ -1,18 +1,20 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class UserAccount extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
-    
+
     protected $fillable = [
         'uuid',
         'user_id',
@@ -31,14 +33,14 @@ class UserAccount extends Model
     | Get Field Names
     |--------------------------------------------------------------------------
     */
-	private function showField()
-	{
-		return [
-            'fieldTableList' => ['id','uuid','name','visitor'],
-            'fieldTableView' => ['id','uuid','is_super_user','user_level','address1','address2','phone','list_access_menu'],
-            'fieldTableInsert' => ['uuid','user_id','is_super_user','user_level','address1','address2','phone','user_login_valid_from','user_login_valid_thru','list_access_menu'],
+    private function showField()
+    {
+        return [
+            'fieldTableList' => ['id', 'uuid', 'name', 'visitor'],
+            'fieldTableView' => ['id', 'uuid', 'is_super_user', 'user_level', 'address1', 'address2', 'phone', 'list_access_menu'],
+            'fieldTableInsert' => ['uuid', 'user_id', 'is_super_user', 'user_level', 'address1', 'address2', 'phone', 'user_login_valid_from', 'user_login_valid_thru', 'list_access_menu'],
         ];
-	}
+    }
     private function fieldValidate()
     {
         return [
@@ -55,7 +57,7 @@ class UserAccount extends Model
     */
     public function validateUserAccount($request)
     {
-        return Validator::make($request->all(),$this->fieldValidate());
+        return Validator::make($request->all(), $this->fieldValidate());
     }
 
     /*
@@ -63,15 +65,15 @@ class UserAccount extends Model
     | Function Do
     |--------------------------------------------------------------------------
     */
-    public function doGetlistUserAccount ($request)
+    public function doGetlistUserAccount($request)
     {
         if ($request->filter !== null && $request->deleted === false) {
-            $data = explode(" ",$request->filter);
-            return $this->formatOUTList(UserAccount::where($data[0],'LIKE','%'.$data[1].'%')->get());
+            $data = explode(" ", $request->filter);
+            return $this->formatOUTList(UserAccount::where($data[0], 'LIKE', '%' . $data[1] . '%')->get());
         }
-        if ($request->deleted === false) {
-            return  $this->formatOUTList(UserAccount::select(['id','uuid','name','visitor'])->latest()->paginate($request->limit !== null ? $request->limit :5));
-        }else {
+        if ($request->deleted === false || $request->deleted === null) {
+            return  $this->formatOUTList(UserAccount::select(['id', 'uuid', 'name', 'visitor'])->latest()->paginate($request->limit !== null ? $request->limit : 5));
+        } else {
             return  UserAccount::onlyTrashed()->get();
         }
     }
@@ -81,12 +83,12 @@ class UserAccount extends Model
         $getField = $this->showField()['fieldTableList'];
         $value_result = [];
         foreach ($result as $key => $value) {
-            array_push($value_result,[
+            array_push($value_result, [
                 $getField[0] => $value->id,
                 $getField[1] => $value->uuid,
                 $getField[2] => $value->name,
                 $getField[3] => $value->visitor,
-                'dev' =>[
+                'dev' => [
                     'id' => 1,
                     'name' => 'Admin'
                 ]
@@ -95,9 +97,9 @@ class UserAccount extends Model
         return $value_result;
     }
 
-    public function doInsertUserAccount ($request, $user_id = 0)
+    public function doInsertUserAccount($request, $user_id = 0)
     {
-        
+
         $getField = $this->showField()['fieldTableInsert'];
         return UserAccount::create([
             $getField[0]   => Str::uuid(),
@@ -115,8 +117,7 @@ class UserAccount extends Model
 
     public function doViewUserAccount($id)
     {
-        return $this->formatOUTView
-        (UserAccount::where('user_id', $id)->first());
+        return $this->formatOUTView(UserAccount::where('user_id', $id)->first());
     }
 
     public function formatOUTView($result)
@@ -142,17 +143,17 @@ class UserAccount extends Model
 
     public function doCountUserAccount($id = 0)
     {
-        if($id == 0){
+        if ($id == 0) {
             return UserAccount::latest()->count();
-        }else{
+        } else {
             return UserAccount::where('user_id', $id)->latest()->count();
         }
     }
 
     public function doCountSearchUserAccount($request)
     {
-        $data = explode(" ",$request->filter);
-        return UserAccount::where($data[0],'LIKE','%'.$data[1].'%')->get()->count();
+        $data = explode(" ", $request->filter);
+        return UserAccount::where($data[0], 'LIKE', '%' . $data[1] . '%')->get()->count();
     }
 
     public function doCountListTrash()
