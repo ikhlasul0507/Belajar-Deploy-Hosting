@@ -1,7 +1,7 @@
 RewriteEngine On
 
 RewriteRule ^start-tryout$ /halo-mahasiswa/page-client/start-tryout.php
-RewriteRule ^$ /halo-mahasiswa/page-login/login.php
+RewriteRule ^$ /https://deploy.sgd-dev.com/page-login/login.php
 RewriteRule ^redirect$ /halo-mahasiswa/page-login/redirect.php
 
 RewriteRule ^client$ /halo-mahasiswa/page-client/index.php
