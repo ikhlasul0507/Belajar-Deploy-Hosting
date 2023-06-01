@@ -2,7 +2,10 @@
 <html lang="en">
 
 <head class="lib-login-head"></head>
-
+<?php 
+    $root = (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $_SERVER['HTTP_HOST']. '/';    
+    $root .= explode("/",str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']))[1];
+?>
 <body>
     <div class="col-lg-12">
         <div class="row" style="height: 100vh">
@@ -29,10 +32,10 @@
             </div>
         </div>
     </div>
-    <script src="./vendor/jquery/jquery.min.js"></script>
-    <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="./js/sb-admin-2.min.js"></script>
+    <script src="<?= $root;?>/vendor/jquery/jquery.min.js"></script>
+    <script src="<?= $root;?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= $root;?>/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="<?= $root;?>/js/sb-admin-2.min.js"></script>
     <script type="module" src="page-login/login.js"></script>
     <script type="module" src="page-login/config.js"></script>
 </body>
