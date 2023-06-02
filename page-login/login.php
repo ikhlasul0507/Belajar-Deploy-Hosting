@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 <head class="lib-login-head"></head>
 <?php
 $root = (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
