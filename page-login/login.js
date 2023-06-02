@@ -4,6 +4,12 @@ import {
   url_resource
 } from "https://deploy.sgd-dev.com/config.js";
 
+
+// import {
+//   config,
+//   url_resource
+// } from "../config.js";
+
 $(document).ready(function () {
   $(".page-auth").load("page-login/page-login.php");
   $(".lib-login-head").load("page-login/lib-login-head.php");
@@ -40,6 +46,7 @@ $(document).ready(function () {
   (function() {
     let url = (config.is_production ? config.url_production : config.url_local) + config.path_url + url_resource
       .ping
+    console.log(url)
     pingServer(url);
   })();
 
