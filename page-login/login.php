@@ -3,7 +3,6 @@
 
 <head class="lib-login-head"></head>
 <?php
-
 $root = (isset($_SERVER['HTTPS']) ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
 if ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '127.0.0.1') {
     $root .= '/' . explode("/", str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER['SCRIPT_NAME']))[1];
@@ -15,7 +14,9 @@ if ($_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == '127.0.0.1'
         <div class="row" style="height: 100vh">
             <div class="col-lg-8 d-none d-lg-block bg-gradient-danger nav-login"></div>
             <div class="col-lg-4  bg-gradient-light ">
-                <span class="badge rounded-pill bg-success"><i class="fas fa-check text-light"></i></span> <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><small class="resultPing">....</small>
+                <span class="badge rounded-pill bg-success"><i class="fas fa-check text-light"></i></span> <span
+                    class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><small
+                    class="resultPing">....</small>
                 <div class="p-2 mt-2">
                     <div class="text-center">
                         <h1 class="h4 text-gray-900 mb-4 label-login">....</h1>
