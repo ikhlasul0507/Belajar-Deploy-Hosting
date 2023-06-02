@@ -1,7 +1,7 @@
 import {
   config,
   url_resource
-} from "../config.js";
+} from "https://deploy.sgd-dev.com/config.js";
 
 $(document).ready(function () {
   $(".page-auth").load("page-login/page-login.php");
